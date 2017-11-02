@@ -9,10 +9,6 @@
             android:icon="@drawable/info"
             android:title="个人信息" />
         <item
-            android:id="@+id/daily"
-            android:icon="@drawable/daily"
-            android:title="日程安排" />
-        <item
             android:id="@+id/analyse"
             android:icon="@drawable/analyse"
             android:title="数据分析" />
