@@ -20,6 +20,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".userActivity" />
+		<activity
+            android:name=".forgetPasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".login1Activity"
+            android:label="@string/title_activity_login1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".showinfoActivity"
+            android:label="@string/title_activity_showinfo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".changePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

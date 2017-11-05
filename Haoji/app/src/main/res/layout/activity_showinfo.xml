@@ -21,10 +21,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:backgroundTint="?attr/colorPrimary"
-    app:srcCompat="?android:attr/floatingToolbarCloseDrawable" />
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="?attr/colorPrimary"
+        app:srcCompat="@drawable/img2" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

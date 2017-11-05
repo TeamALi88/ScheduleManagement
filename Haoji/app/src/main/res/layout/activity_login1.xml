@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:backgroundTint="?attr/colorPrimary"
-        app:srcCompat="?android:attr/floatingToolbarCloseDrawable" />
+        app:srcCompat="@drawable/img2" />
 
     <include layout="@layout/content_login1" />
 
