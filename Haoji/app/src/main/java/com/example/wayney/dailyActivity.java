@@ -70,7 +70,7 @@ public class dailyActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.info) {
-            Intent intent = new Intent(dailyActivity.this , userActivity.class);
+            Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
                     startActivity(intent);
         } else if (id == R.id.analyse) {
 
