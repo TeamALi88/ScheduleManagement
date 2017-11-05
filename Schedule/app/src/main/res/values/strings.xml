@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Schedule</string>
-    <string name="title_activity_change_password">changePasswordActivity</string>
-    <string name="title_activity_login1">login1Activity</string>
-    <string name="title_activity_showinfo">showinfoActivity</string>
-</resources>
