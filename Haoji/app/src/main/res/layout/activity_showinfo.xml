@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.wayney.showinfoActivity">
+    tools:context="com.example.schedule.showinfoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,17 +20,13 @@
             />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:backgroundTint="?attr/colorPrimary"
-        app:srcCompat="@drawable/img2" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
+        android:layout_gravity="top|right"
+        android:layout_margin="16dp"
         app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@drawable/edit" />
 
