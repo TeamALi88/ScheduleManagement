@@ -14,8 +14,9 @@
         android:layout_height="59dp"
         android:layout_gravity="right|bottom"
         android:src="@drawable/plus_sign"
-        app:backgroundTint="@android:color/holo_blue_light"
+        app:backgroundTint="?attr/colorPrimary"
         tools:layout_editor_absoluteX="248dp"
         tools:layout_editor_absoluteY="338dp" />
+
 
 </android.support.constraint.ConstraintLayout>
