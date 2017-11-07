@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import com.example.wayney.Button.DragFloatActionButton;
 
 public class dailyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,7 +25,7 @@ public class dailyActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton addSchedule = (FloatingActionButton) findViewById(R.id.addSchedule);
+        DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
         addSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +71,7 @@ public class dailyActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.info) {
-            Intent intent = new Intent(dailyActivity.this , userActivity.class);
+            Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
                     startActivity(intent);
         } else if (id == R.id.analyse) {
 
