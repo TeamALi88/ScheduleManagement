@@ -112,5 +112,5 @@
         android:layout_height="47dp"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/spinner2"
-        app:srcCompat="@drawable/ViewGallery" />
+        app:srcCompat="@drawable/viewgallery" />
 </android.support.constraint.ConstraintLayout>
