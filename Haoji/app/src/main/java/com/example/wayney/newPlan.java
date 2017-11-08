@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class userActivity extends AppCompatActivity {
+public class newPlan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.infoshow);
+        setContentView(R.layout.new_plan_edit);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){

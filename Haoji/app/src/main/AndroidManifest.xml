@@ -42,6 +42,10 @@
         <activity
             android:name=".passChangeActivity"
             android:label="@string/title_activity_pass_change"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".newPlan"
+            android:label="newPlan"
             android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 

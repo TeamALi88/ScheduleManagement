@@ -25,13 +25,12 @@ public class dailyActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
+        FloatingActionButton addSchedule = (FloatingActionButton) findViewById(R.id.addSchedule);
         addSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Wait for add more buttons", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //此处添加“文本输入”模块id
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                startActivity(intent);
             }
         });
 
