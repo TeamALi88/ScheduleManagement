@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".dailyActivity"
+            android:name=".dailyActivity.dailyActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,31 +20,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".forgetPasswordActivity"
+            android:name=".userActivity.forgetPasswordActivity"
             android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".login1Activity"
+            android:name=".userActivity.login1Activity"
             android:label="@string/title_activity_login1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".showinfoActivity"
+            android:name=".userActivity.showinfoActivity"
             android:label="@string/title_activity_showinfo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".changePasswordActivity"
+            android:name=".userActivity.changePasswordActivity"
             android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar" />
 		 <activity
-            android:name=".RegisterActivity"
+            android:name=".userActivity.RegisterActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".passChangeActivity"
+            android:name=".dailyActivity.passChangeActivity"
             android:label="@string/title_activity_pass_change"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".newPlan"
+            android:name=".dailyActivity.newPlan"
             android:label="newPlan"
             android:theme="@style/AppTheme.NoActionBar">
 		</activity>
