@@ -42,6 +42,8 @@ public class login1Activity extends AppCompatActivity {
             }
         });
     }
+    
+    
 
     public boolean onOptionsItemSelected (MenuItem item) {
             switch (item.getItemId()) {
@@ -49,6 +51,8 @@ public class login1Activity extends AppCompatActivity {
                     this.finish(); // back button
                     return true;
             }
+        
+        
             return super.onOptionsItemSelected(item);
         }
 
