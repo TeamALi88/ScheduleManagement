@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wayney">
+    //QQ登录授权所需权限
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -42,9 +46,26 @@
         <activity
             android:name=".passChangeActivity"
             android:label="@string/title_activity_pass_change"
-            android:theme="@style/AppTheme.NoActionBar">
-		</activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".newPlan"
+            android:label="newPlan"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- 注册SDKActivity -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105602574" /> <!-- 开放平台获取的APPID -->
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

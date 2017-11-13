@@ -1,8 +1,7 @@
-package com.example.wayney;
+package com.example.wayney.dailyActivity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +14,16 @@ import android.view.MenuItem;
 import android.content.Intent;
 import com.example.wayney.Button.DragFloatActionButton;
 
+import com.example.wayney.R;
+import com.example.wayney.userActivity.login1Activity;
+
 public class dailyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sidebar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,9 +31,8 @@ public class dailyActivity extends AppCompatActivity
         addSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Wait for add more buttons", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //此处添加“文本输入”模块id
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                startActivity(intent);
             }
         });
 

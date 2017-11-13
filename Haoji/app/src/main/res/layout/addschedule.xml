@@ -5,21 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.wayney.dailyActivity"
+    tools:context="com.example.wayney.dailyActivity.dailyActivity"
     tools:showIn="@layout/app_bar_main">
 
     <com.example.wayney.Button.DragFloatActionButton
         android:id="@+id/addSchedule"
         android:layout_width="69dp"
         android:layout_height="58dp"
-        android:layout_gravity="right|bottom"
+        android:layout_gravity="end|bottom"
         android:layout_marginBottom="80dp"
         android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:src="@drawable/plus_sign"
+        android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
 
 </android.support.constraint.ConstraintLayout>
