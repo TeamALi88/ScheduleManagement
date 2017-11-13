@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.wayney.dailyActivity.dailyActivity"
+    tools:context="com.example.haoji.dailyActivity.dailyActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <com.example.wayney.Button.DragFloatActionButton
+    <com.example.haoji.Button.DragFloatActionButton
         android:id="@+id/addSchedule"
         android:layout_width="69dp"
         android:layout_height="58dp"

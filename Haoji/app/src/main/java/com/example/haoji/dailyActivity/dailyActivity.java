@@ -1,4 +1,4 @@
-package com.example.wayney.dailyActivity;
+package com.example.haoji.dailyActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
-import com.example.wayney.Button.DragFloatActionButton;
+import com.example.haoji.Button.DragFloatActionButton;
 
-import com.example.wayney.R;
-import com.example.wayney.userActivity.login1Activity;
+import com.example.haoji.R;
+import com.example.haoji.userActivity.login1Activity;
 
 public class dailyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

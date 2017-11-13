@@ -1,4 +1,4 @@
-package com.example.wayney.dailyActivity;
+package com.example.haoji.dailyActivity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.wayney.R;
+import com.example.haoji.R;
 
 public class passChangeActivity extends AppCompatActivity {
 

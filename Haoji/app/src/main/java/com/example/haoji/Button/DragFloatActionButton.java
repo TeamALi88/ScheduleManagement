@@ -1,4 +1,4 @@
-package com.example.wayney.Button;
+package com.example.haoji.Button;
 
 /**
  * Created by WayneY on 2017/11/9.
@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.animation.DecelerateInterpolator;
-import com.example.wayney.Button.ScreenUtils;
+import com.example.haoji.Button.ScreenUtils;
 
     public class DragFloatActionButton extends FloatingActionButton {
         private int screenWidth;

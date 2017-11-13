@@ -1,4 +1,4 @@
-package com.example.wayney;
+package com.example.haoji;
 
 import org.junit.Test;
 

@@ -1,11 +1,11 @@
-package com.example.wayney.dailyActivity;
+package com.example.haoji.dailyActivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.wayney.R;
+import com.example.haoji.R;
 
 public class newPlan extends AppCompatActivity {
 

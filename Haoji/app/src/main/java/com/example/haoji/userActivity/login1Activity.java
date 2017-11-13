@@ -1,4 +1,4 @@
-package com.example.wayney.userActivity;
+package com.example.haoji.userActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wayney.R;
+import com.example.haoji.R;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
