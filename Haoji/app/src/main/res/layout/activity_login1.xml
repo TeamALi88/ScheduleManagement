@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.schedule.login1Activity">
+    tools:context="com.example.wayney.login1Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -77,6 +77,15 @@
             android:textColor="#0000ff"
             android:textSize="22sp"
             />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/qq_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="500dp"
+            android:onClick="buttonLogin"
+            app:backgroundTint="@android:color/background_light"
+            app:srcCompat="@drawable/qq" />
     </RelativeLayout>
 
 
