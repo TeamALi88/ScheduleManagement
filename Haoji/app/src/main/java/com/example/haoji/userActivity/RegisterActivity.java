@@ -1,4 +1,4 @@
-package com.example.wayney.userActivity;
+package com.example.haoji.userActivity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.wayney.R;
+import com.example.haoji.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

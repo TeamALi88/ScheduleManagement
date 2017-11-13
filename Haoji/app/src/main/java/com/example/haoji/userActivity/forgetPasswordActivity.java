@@ -1,38 +1,26 @@
-package com.example.wayney.userActivity;
+package com.example.haoji.userActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.wayney.R;
+import com.example.haoji.R;
 
-public class showinfoActivity extends AppCompatActivity {
+public class forgetPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_showinfo);
+        setContentView(R.layout.activity_forget_password);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        FloatingActionButton edit_info=(FloatingActionButton) findViewById(R.id.edit_info);
-        edit_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(showinfoActivity.this,changePasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {

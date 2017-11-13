@@ -1,4 +1,4 @@
-package com.example.wayney;
+package com.example.haoji;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
