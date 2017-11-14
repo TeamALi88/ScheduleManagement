@@ -35,6 +35,7 @@ weibo|否|string|绑定的微博号
 
 - 请求示例
 
+```
 {
     "username":"yujun",
     "password":"yujun12345",
@@ -42,12 +43,15 @@ weibo|否|string|绑定的微博号
     "qq":"",
     "weibo":""
 }
+```
 
 - 返回示例
 
+```
 {
     "state":200
 }
+```
 
 - 返回参数
 
@@ -81,22 +85,39 @@ phonenum|是|string|手机号
 
 - 请求示例
 
+```
 {
-    "password":"yujun12345",
-    "phonenum":"1233241514"
+  "password":"yujun12345",
+  "phonenum":"12334556"
 }
+```
 
 - 返回示例
 
+```
 {
-    "state":200
+    "data": {
+        "phonenum": "12334556",
+        "picture": "pictures/12334556.jpg",
+        "qq": "",
+        "username": "yujun",
+        "wechat": ""
+    },
+    "state": 200
 }
+```
 
 - 返回参数
 
 参数|类型|说明
 :-|:-|:-|
 state|int|状态
+data|json|用户数据
+username|string|用户名
+phonenum|string|手机号
+qq|string|绑定的qq号
+weibo|string|绑定的微博号
+picture|string|用户头像地址
 
 - 备注
 
