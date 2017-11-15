@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.haoji.dailyActivity.dailyActivity"
-    tools:showIn="@layout/app_bar_main">
-
+    android:orientation="vertical">
 
     <RadioGroup
         android:id="@+id/tab_menu"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rbOneday"
@@ -23,16 +18,16 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
             android:button="@null"
             android:checked="true"
             android:drawableTop="@drawable/tab_selector_weixing"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="日"
+            android:textColor="@drawable/tab_selector_tv_color"
 
 
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbThreeDay"
@@ -41,13 +36,13 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:drawableTop="@drawable/tab_selector_threeday"
             android:button="@null"
+            android:drawableTop="@drawable/tab_selector_threeday"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="3天"
-            android:textSize="20dp"/>
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbWeek"
@@ -56,13 +51,13 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
             android:button="@null"
             android:drawableTop="@drawable/tab_selector_week"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="周"
-            android:textSize="20dp"/>
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbMonth"
@@ -71,14 +66,14 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:drawableTop="@drawable/tab_selector_month"
             android:button="@null"
+            android:drawableTop="@drawable/tab_selector_month"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="月"
+            android:textColor="@drawable/tab_selector_tv_color"
 
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
     </RadioGroup>
 
     <FrameLayout
@@ -93,30 +88,10 @@
         android:id="@+id/fg2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </FrameLayout>
 
-    <com.example.haoji.Button.SectorMenuButton
-        android:id="@+id/bottom_sector_menu"
-        android:layout_width="66dp"
-        android:layout_height="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="80dp"
-        app:aebAnimDurationMillis="175"
-        app:aebBlurBackground="true"
-        app:aebBlurRadius="10"
-        app:aebButtonElevation="0dp"
-        app:aebButtonGapDp="60dp"
-        app:aebEndAngleDegree="180"
-        app:aebIsSelectionMode="false"
-        app:aebMainButtonRotateAnimDurationMillis="300"
-        app:aebMainButtonRotateDegree="0"
-        app:aebMainButtonSizeDp="70dp"
-        app:aebRippleEffect="true"
-        app:aebStartAngleDegree="90"
-        app:aebSubButtonSizeDp="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
+
+

@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.haoji.Button.DragFloatActionButton;
@@ -37,12 +38,19 @@ public class dailyActivity extends AppCompatActivity
 
         //DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
         //addSchedule.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View view) {
-               // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                //startActivity(intent);
-           // }
-       // });
+        //@Override
+        //public void onClick(View view) {
+        // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+        //startActivity(intent);
+        // }
+        // });
+
+        FragmentChat chat = new FragmentChat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+        FragmentChat chatlist = new FragmentChat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, chatlist).commit();
+        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +60,46 @@ public class dailyActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                switch (checkedId) {
+                    case R.id.rbOneday:
+                        FragmentChat chat = new FragmentChat();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+                        ChatListView chatlist = new ChatListView();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, chatlist).commit();
+                        break;
+                    case R.id.rbThreeDay:
+                        FragmentThreeDay threeday = new FragmentThreeDay();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, threeday).commit();
+                        ThreeListView threelistview = new ThreeListView();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threelistview).commit();
+                        break;
+                    case R.id.rbWeek:
+                        FragmentWeek week = new FragmentWeek();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, week).commit();
+                        WeekListView weeklistview = new WeekListView();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklistview).commit();
+                        break;
+
+                    case R.id.rbMonth:
+                        FragmentMonth month = new FragmentMonth();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
+                                .commit();
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
+
+
 
 
     private void initBottomSectorMenuButton() {
@@ -123,7 +170,8 @@ public class dailyActivity extends AppCompatActivity
             Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
                     startActivity(intent);
         } else if (id == R.id.analyse) {
-
+            Intent intent = new Intent(dailyActivity.this ,MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.refresh) {
 
         } else if (id == R.id.setting) {

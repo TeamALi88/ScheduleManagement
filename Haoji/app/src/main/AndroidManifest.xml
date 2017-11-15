@@ -50,6 +50,10 @@
             android:name="com.example.haoji.userActivity.forgetPasswordActivity"
             android:label="forgetPasswordActivit"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.example.haoji.dailyActivity.MainActivity"
+            android:label="mainActivit"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!-- 注册SDKActivity -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
