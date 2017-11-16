@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toolbar;
 
 import com.example.haoji.R;
 
@@ -28,14 +29,23 @@ public class newPlan extends AppCompatActivity {
     final int TIME_PICKER = 1;
     TextView textv_date;
     TextView textv_time;
-    Button button_cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_plan_edit);
+
+        //initialize toolbar
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
-        button_cancel = (Button) findViewById(R.id.new_plan_edit_cancel);
 
         //set default date & time
         Calendar c = Calendar.getInstance();
@@ -61,19 +71,6 @@ public class newPlan extends AppCompatActivity {
                 showDialog(TIME_PICKER);
             }
         });
-
-        button_cancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override
