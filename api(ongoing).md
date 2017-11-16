@@ -4,7 +4,7 @@
 :-:|:-|
 200|请求成功
 400|请求失败
-401|用户名错误
+401|手机号错误
 420|密码错误
 
 # 接口示例
@@ -35,6 +35,7 @@ weibo|否|string|绑定的微博号
 
 - 请求示例
 
+```
 {
     "username":"yujun",
     "password":"yujun12345",
@@ -42,12 +43,15 @@ weibo|否|string|绑定的微博号
     "qq":"",
     "weibo":""
 }
+```
 
 - 返回示例
 
+```
 {
     "state":200
 }
+```
 
 - 返回参数
 
@@ -81,22 +85,39 @@ phonenum|是|string|手机号
 
 - 请求示例
 
+```
 {
-    "password":"yujun12345",
-    "phonenum":"1233241514"
+  "password":"yujun12345",
+  "phonenum":"12334556"
 }
+```
 
 - 返回示例
 
+```
 {
-    "state":200
+    "data": {
+        "phonenum": "12334556",
+        "picture": "pictures/12334556.jpg",
+        "qq": "",
+        "username": "yujun",
+        "wechat": ""
+    },
+    "state": 200
 }
+```
 
 - 返回参数
 
 参数|类型|说明
 :-|:-|:-|
 state|int|状态
+data|json|用户数据
+username|string|用户名
+phonenum|string|手机号
+qq|string|绑定的qq号
+weibo|string|绑定的微博号
+picture|string|用户头像地址
 
 - 备注
 
@@ -116,17 +137,21 @@ state|int|状态
 
 - 请求参数
 
-
+  无
 
 - 请求示例
 
+![](http://images2017.cnblogs.com/blog/1011927/201711/1011927-20171115001518343-1351168463.png)
 
+![](http://images2017.cnblogs.com/blog/1011927/201711/1011927-20171115001553484-141481166.png)
 
 - 返回示例
 
+```
 {
     "state":200
 }
+```
 
 - 返回参数
 
@@ -135,6 +160,8 @@ state|int|状态
 state|int|状态
 
 - 备注
+
+传上来的图片要以手机号为名字，且只能上传png、jpeg、jpg、gif格式的图片。
 
 ## 下载头像
 
@@ -160,12 +187,20 @@ phonenum|是|string|手机号
 
 - 请求示例
 
-
+```
+{
+	"password":"yujun12345",
+	"phonenum":"12334556"
+}
+```
 
 - 返回示例
+![](http://images2017.cnblogs.com/blog/1011927/201711/1011927-20171115001831874-1720502679.png)
 
+![](http://images2017.cnblogs.com/blog/1011927/201711/1011927-20171115001929015-1355265507.png)
 
 - 返回参数
 
+  无
 
 - 备注
