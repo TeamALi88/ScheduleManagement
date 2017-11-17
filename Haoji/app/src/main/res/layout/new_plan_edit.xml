@@ -9,87 +9,96 @@
         android:id="@+id/editText2"
         android:layout_width="219dp"
         android:layout_height="47dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="多行输入"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="47dp"
         android:layout_height="47dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/edit" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="47dp"
         android:layout_height="47dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/clock" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/new_plan_edit_date"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
         android:text="2017年11月10日周五"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/new_plan_edit_time"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
         android:text="08:00"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_plan_edit_date" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="47dp"
+        android:layout_width="46dp"
         android:layout_height="47dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/spinner"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:srcCompat="@drawable/remind" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="219dp"
         android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/new_plan_edit_confirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="56dp"
-        android:text="取消"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
         android:text="确认"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -102,15 +111,36 @@
         android:id="@+id/spinner2"
         android:layout_width="219dp"
         android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="47dp"
         android:layout_height="47dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/spinner2"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:srcCompat="@drawable/viewgallery" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
 </android.support.constraint.ConstraintLayout>

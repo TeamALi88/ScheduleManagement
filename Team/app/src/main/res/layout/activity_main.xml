@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.haoji.dailyActivity.dailyActivity"
-    tools:showIn="@layout/app_bar_main">
-
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
 
     <RadioGroup
         android:id="@+id/tab_menu"
@@ -19,7 +16,7 @@
         <RadioButton
             android:id="@+id/rbOneday"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
@@ -84,44 +81,39 @@
     <FrameLayout
         android:id="@+id/fg"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/tab_menu"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="50dp">
 
     </FrameLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:divider="#FFF"
+        android:dividerHeight="1px"
+        android:layout_margin="10dip"
+        />
+
+    <TextView
+        android:id="@+id/date_name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/Sid"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        />
 
 
-    <FrameLayout
-        android:id="@+id/fg2"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fg"
-        tools:layout_editor_absoluteX="0dp"></FrameLayout>
 
-    <com.example.haoji.Button.SectorMenuButton
-        android:id="@+id/bottom_sector_menu"
-        android:layout_width="66dp"
-        android:layout_height="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="80dp"
-        app:aebAnimDurationMillis="175"
-        app:aebBlurBackground="true"
-        app:aebBlurRadius="10"
-        app:aebButtonElevation="0dp"
-        app:aebButtonGapDp="60dp"
-        app:aebEndAngleDegree="180"
-        app:aebIsSelectionMode="false"
-        app:aebMainButtonRotateAnimDurationMillis="300"
-        app:aebMainButtonRotateDegree="0"
-        app:aebMainButtonSizeDp="70dp"
-        app:aebRippleEffect="true"
-        app:aebStartAngleDegree="90"
-        app:aebSubButtonSizeDp="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
+
+
