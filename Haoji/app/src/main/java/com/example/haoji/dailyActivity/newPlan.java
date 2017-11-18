@@ -64,7 +64,7 @@ public class newPlan extends AppCompatActivity {
         //set default date & time
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MARCH);
+        month = c.get(Calendar.MONTH)+1;
         day = c.get(Calendar.DAY_OF_MONTH);
         hour = c.get(Calendar.HOUR);
         minute = c.get(Calendar.MINUTE);
