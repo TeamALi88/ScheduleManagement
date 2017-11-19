@@ -3,6 +3,8 @@ package com.example.haoji.dailyActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.haoji.Database;
 import com.example.haoji.R;
 
 import java.util.Calendar;
@@ -25,15 +30,21 @@ public class newPlan extends AppCompatActivity {
     private int day;
     private int hour;
     private int minute;
+    private Database dbhelper;
     final int DATE_PICKER = 0;
     final int TIME_PICKER = 1;
+    EditText editt_content;
     TextView textv_date;
     TextView textv_time;
+    Button bt_confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_plan_edit);
+
+        //database helper
+        dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
 
         //initialize toolbar
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
@@ -44,13 +55,16 @@ public class newPlan extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //initialize Views
+        editt_content = (EditText) findViewById(R.id.new_plan_edit_content);
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
+        bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
 
         //set default date & time
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MARCH);
+        month = c.get(Calendar.MONTH)+1;
         day = c.get(Calendar.DAY_OF_MONTH);
         hour = c.get(Calendar.HOUR);
         minute = c.get(Calendar.MINUTE);
@@ -69,6 +83,25 @@ public class newPlan extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 showDialog(TIME_PICKER);
+            }
+        });
+
+        bt_confirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                SQLiteDatabase db = dbhelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("content", editt_content.getText().toString());
+                values.put("year", year);
+                values.put("month", month);
+                values.put("day", day);
+                values.put("hour", hour);
+                values.put("minute", minute);
+                values.put("remind", 0);
+                values.put("tag", "");
+                db.insert("schedule", null, values);
+                Toast.makeText(newPlan.this, "Success!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
