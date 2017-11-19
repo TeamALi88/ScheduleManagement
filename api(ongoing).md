@@ -204,3 +204,104 @@ phonenum|是|string|手机号
   无
 
 - 备注
+
+## 修改个人信息
+
+- 简要描述
+
+   用户修改个人信息接口
+
+- 请求url
+
+   http://97.64.21.155:8001/user/change/data
+
+- 请求方式
+  
+  POST
+
+- 请求参数
+
+参数名|必选|类型|说明
+:-|:-:|:-|:-
+username|是|string|用户名
+password|是|string|密码
+phonenum|是|string|手机号
+qq|否|string|绑定的qq号
+weibo|否|string|绑定的微博号
+
+- 请求示例
+
+```
+{
+	"username":"jun",
+	"password":"35789",
+	"phonenum":"987654321",
+	"qq":"12345",
+	"weibo":""
+}
+```
+
+- 返回示例
+
+```
+{
+    "state":200
+}
+```
+
+- 返回参数
+
+参数|类型|说明
+:-|:-|:-|
+state|int|状态
+
+
+- 备注
+
+
+## 重置密码
+
+- 简要描述
+
+  用户忘记密码是用手机号重置密码的接口
+
+- 请求url
+
+   http://97.64.21.155:8001/user/change/password
+
+- 请求方式
+  
+  POST
+
+- 请求参数
+
+参数名|必选|类型|说明
+:-|:-:|:-|:-
+newpassword|是|string|新密码
+phonenum|是|string|手机号
+
+- 请求示例
+
+```
+{
+	"newpassword":"456846142",
+	"phonenum":"987654321"
+}
+```
+
+- 返回示例
+
+```
+{
+    "state":200
+}
+```
+
+- 返回参数
+
+参数|类型|说明
+:-|:-|:-|
+state|int|状态
+
+
+- 备注
