@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button getCode;
     private Button modifyPsw;
     private EditText userphone,edit_code,password;
-    private int i = 60;//µ¹¼ÆÊ±
+    private int i = 60;//å€’è®¡æ—¶
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 handler.sendMessage(msg);
             }
         };
-        //×¢²á»Øµ÷¼àÌı½Ó¿Ú
+        //æ³¨å†Œå›è°ƒç›‘å¬æ¥å£
         SMSSDK.registerEventHandler(eventHandler);
     }
     @Override
@@ -74,15 +74,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
        // String passWord = password.getText().toString();
         switch (v.getId()) {
             case R.id.getCode:
-                // 1. Í¨¹ı¹æÔòÅĞ¶ÏÊÖ»úºÅ
+                // 1. é€šè¿‡è§„åˆ™åˆ¤æ–­æ‰‹æœºå·
                 if (!judgephoneNum(phoneNum)) {
                     return;
-                } // 2. Í¨¹ısdkÇëÇó»ñÈ¡¶ÌĞÅÑéÖ¤Âë
+                } // 2. é€šè¿‡sdkè¯·æ±‚è·å–çŸ­ä¿¡éªŒè¯ç 
                 SMSSDK.getVerificationCode("86", phoneNum);
 
-                // 3. °Ñ°´Å¥±ä³É²»¿Éµã»÷£¬²¢ÇÒÏÔÊ¾µ¹¼ÆÊ±£¨ÕıÔÚ»ñÈ¡£©
+                // 3. æŠŠæŒ‰é’®å˜æˆä¸å¯ç‚¹å‡»ï¼Œå¹¶ä¸”æ˜¾ç¤ºå€’è®¡æ—¶ï¼ˆæ­£åœ¨è·å–ï¼‰
                 getCode.setClickable(false);
-                getCode.setText("ÖØĞÂ·¢ËÍ(" + i + ")");
+                getCode.setText("é‡æ–°å‘é€(" + i + ")");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.modifyPsw:
-                //Ìá½»¶ÌĞÅÑéÖ¤Âë£¬ÔÚ¼àÌıÖĞ·µ»Ø
+                //æäº¤çŸ­ä¿¡éªŒè¯ç ï¼Œåœ¨ç›‘å¬ä¸­è¿”å›
                 SMSSDK.submitVerificationCode("86", phoneNum, edit_code
                         .getText().toString());
                 break;
@@ -115,9 +115,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                  String phoneNum = userphone.getText().toString();
                  String passWord = password.getText().toString();
                  if (msg.what == -9) {
-                     getCode.setText("ÖØĞÂ·¢ËÍ(" + i + ")");
+                     getCode.setText("é‡æ–°å‘é€(" + i + ")");
                  } else if (msg.what == -8) {
-                     getCode.setText("»ñÈ¡ÑéÖ¤Âë");
+                     getCode.setText("è·å–éªŒè¯ç ");
                      getCode.setClickable(true);
                      i = 60;
                  } else {
@@ -126,13 +126,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                      Object data = msg.obj;
                      Log.e("event", "event=" + event);
                      if (result == SMSSDK.RESULT_COMPLETE) {
-                         //»Øµ÷Íê³É
+                         //å›è°ƒå®Œæˆ
                          if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                             // Ìá½»ÑéÖ¤Âë³É¹¦£¬Ìá½»×¢²á
-                             Toast.makeText(getApplicationContext(), "Ìá½»ÑéÖ¤Âë³É¹¦",
+                             // æäº¤éªŒè¯ç æˆåŠŸï¼Œæäº¤æ³¨å†Œ
+                             Toast.makeText(getApplicationContext(), "æäº¤éªŒè¯ç æˆåŠŸ",
                                      Toast.LENGTH_SHORT).show();
                              if (isValid())
-                             //¹¹ÔìJSONObjectÀàĞÍµÄÊı¾İ
+                             //æ„é€ JSONObjectç±»å‹çš„æ•°æ®
                              {
                                  JSONObject jsonObject = new JSONObject();
                                  try {
@@ -144,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                  } catch (JSONException e) {
                                      e.printStackTrace();
                                  }
-                                 //·¢ËÍÇëÇó
+                                 //å‘é€è¯·æ±‚
                                  HttpUtil.sendOkHttpRequest("http://97.64.21.155:8001/user/signup ", jsonObject, new okhttp3.Callback() {
                                      public void onResponse(Call call, Response response) throws IOException {
                                          String responseData = response.body().string();
@@ -167,15 +167,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                              }
 
                          } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                             //»ñÈ¡ÑéÖ¤Âë³É¹¦
-                             Toast.makeText(getApplicationContext(), "ÑéÖ¤ÂëÒÑ¾­·¢ËÍ",
+                             //è·å–éªŒè¯ç æˆåŠŸ
+                             Toast.makeText(getApplicationContext(), "éªŒè¯ç å·²ç»å‘é€",
                                      Toast.LENGTH_SHORT).show();
                          } else {
                              ((Throwable) data).printStackTrace();
                          }
                      }
                      if (result == SMSSDK.RESULT_ERROR) {
-                         Toast.makeText(getApplicationContext(), "ÑéÖ¤Âë´íÎó",
+                         Toast.makeText(getApplicationContext(), "éªŒè¯ç é”™è¯¯",
                                  Toast.LENGTH_SHORT).show();
                      }
                  }
@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     /**
-     * ÅĞ¶ÏÊÖ»úºÅÂëÊÇ·ñºÏÀí
+     * åˆ¤æ–­æ‰‹æœºå·ç æ˜¯å¦åˆç†
      *
      * @param phoneNum
      */
@@ -193,12 +193,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 && isMobileNO(phoneNum)) {
             return true;
         }
-        Toast.makeText(this, "ÊÖ»úºÅÂëÊäÈëÓĞÎó£¡",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "æ‰‹æœºå·ç è¾“å…¥æœ‰è¯¯ï¼",Toast.LENGTH_SHORT).show();
         return false;
     }
 
     /**
-     * ÅĞ¶ÏÒ»¸ö×Ö·û´®µÄÎ»Êı
+     * åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²çš„ä½æ•°
      * @param str
      * @param length
      * @return
@@ -212,7 +212,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 public boolean isValid(){
         if (password.getText().toString().trim().equals("")) {
-        Toast.makeText(this,"ÃÜÂë²»ÄÜÎª¿Õ",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"å¯†ç ä¸èƒ½ä¸ºç©º",Toast.LENGTH_SHORT).show();
         return false;
         }
         return true;
@@ -231,15 +231,15 @@ public boolean isValid(){
     }
 
     /**
-     * ÑéÖ¤ÊÖ»ú¸ñÊ½
+     * éªŒè¯æ‰‹æœºæ ¼å¼
      */
     public static boolean isMobileNO(String mobileNums) {
 		/*
-		 * ÒÆ¶¯£º134¡¢135¡¢136¡¢137¡¢138¡¢139¡¢150¡¢151¡¢157(TD)¡¢158¡¢159¡¢187¡¢188
-		 * ÁªÍ¨£º130¡¢131¡¢132¡¢152¡¢155¡¢156¡¢185¡¢186 µçĞÅ£º133¡¢153¡¢180¡¢189¡¢£¨1349ÎÀÍ¨£©
-		 * ×Ü½áÆğÀ´¾ÍÊÇµÚÒ»Î»±Ø¶¨Îª1£¬µÚ¶şÎ»±Ø¶¨Îª3»ò5»ò8£¬ÆäËûÎ»ÖÃµÄ¿ÉÒÔÎª0-9
+		 * ç§»åŠ¨ï¼š134ã€135ã€136ã€137ã€138ã€139ã€150ã€151ã€157(TD)ã€158ã€159ã€187ã€188
+		 * è”é€šï¼š130ã€131ã€132ã€152ã€155ã€156ã€185ã€186 ç”µä¿¡ï¼š133ã€153ã€180ã€189ã€ï¼ˆ1349å«é€šï¼‰
+		 * æ€»ç»“èµ·æ¥å°±æ˜¯ç¬¬ä¸€ä½å¿…å®šä¸º1ï¼Œç¬¬äºŒä½å¿…å®šä¸º3æˆ–5æˆ–8ï¼Œå…¶ä»–ä½ç½®çš„å¯ä»¥ä¸º0-9
 		 */
-        String telRegex = "[1][358]\\d{9}";// "[1]"´ú±íµÚ1Î»ÎªÊı×Ö1£¬"[358]"´ú±íµÚ¶şÎ»¿ÉÒÔÎª3¡¢5¡¢8ÖĞµÄÒ»¸ö£¬"\\d{9}"´ú±íºóÃæÊÇ¿ÉÒÔÊÇ0¡«9µÄÊı×Ö£¬ÓĞ9Î»¡£
+        String telRegex = "[1][358]\\d{9}";// "[1]"ä»£è¡¨ç¬¬1ä½ä¸ºæ•°å­—1ï¼Œ"[358]"ä»£è¡¨ç¬¬äºŒä½å¯ä»¥ä¸º3ã€5ã€8ä¸­çš„ä¸€ä¸ªï¼Œ"\\d{9}"ä»£è¡¨åé¢æ˜¯å¯ä»¥æ˜¯0ï½9çš„æ•°å­—ï¼Œæœ‰9ä½ã€‚
         if (TextUtils.isEmpty(mobileNums))
             return false;
         else
@@ -270,7 +270,7 @@ public boolean isValid(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(RegisterActivity.this,"×¢²áÊ§°Ü",Toast.LENGTH_LONG ).show() ;
+                Toast.makeText(RegisterActivity.this,"æ³¨å†Œå¤±è´¥",Toast.LENGTH_LONG ).show() ;
             }
         }) ;
     }

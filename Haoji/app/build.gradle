@@ -44,19 +44,19 @@ dependencies {
     implementation files('libs/gson-2.8.2.jar')
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])//添加所有在libs文件夹中的jar
+    compile fileTree(dir: 'libs', include: ['*.jar'])//娣诲姞鎵�鏈夊湪libs鏂囦欢澶逛腑鐨刯ar
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile(name: 'SMSSDK-3.0.0', ext: 'aar')
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })//androidTestCompile会添加额外的library支持针对测试
+    })//androidTestCompile浼氭坊鍔犻澶栫殑library鏀寔閽堝娴嬭瘯
 }
 dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    //compile 'com.squareup.okhttp3:okhttp:3.9.0'
     //compile 'com.google.code.gson:gson:2.7'
 }
 dependencies {

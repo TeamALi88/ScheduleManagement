@@ -40,19 +40,11 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+        // TODO 单日日程显示不对齐
         View view = inflater.inflate(R.layout.recyclerview, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mAdapter = new MyAdapter(getData());
-
-        //database initialize
-
-
-        //Calendar initialize
-        Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
-        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -78,25 +70,37 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
 
 
     private ArrayList<String> getData() {
-        ArrayList<String> data = new ArrayList<>();
+
+        //Calendar initialize
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH)+1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        //database initialize
         dbhelper = new Database(this.getContext(), "HaojiDatabase.db", null, 1);
         db = dbhelper.getWritableDatabase();
-       Cursor cursor = db.rawQuery("select * from schedule where year = "+year
+
+        ArrayList<String> data = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("select * from schedule where year = "+year
                + " and month = "+month
                + " and day = " +day
                , null);
-       Log.d("getData()", ""+cursor.getColumnCount());
-       if(cursor.moveToFirst()){
-           do{
-               String content = cursor.getString(cursor.getColumnIndex("content"));
-               String hour = cursor.getString(cursor.getColumnIndex("hour"));
-               String minute = cursor.getString(cursor.getColumnIndex("minute"));
-               data.add(hour+":"+minute);
-               data.add(content);
-           } while(cursor.moveToNext());
-       }
-       return data;
-    }
+        //Log.d("getData()", ""+cursor.getCount());
+        //Log.d("getData():Date", "year:"+year+"month:"+month+"day:"+day);
 
+        if(cursor.moveToFirst()){
+            do{
+                String content = cursor.getString(cursor.getColumnIndex("content"));
+                String hour = cursor.getString(cursor.getColumnIndex("hour"));
+                String minute = cursor.getString(cursor.getColumnIndex("minute"));
+                data.add(hour+":"+minute);
+                data.add(content);
+                //Log.d("getData()", "addData");
+            } while(cursor.moveToNext());
+        }
+        return data;
+    }
 
 }
