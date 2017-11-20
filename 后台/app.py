@@ -185,12 +185,28 @@ def change_password():
     data = request.get_data()
     dict = json.loads(data.decode("utf-8"))
     values = (dict['newpassword'], dict['phonenum'],)
+    phonenum = (dict['phonenum'],)
     try:
-        cursor.execute('update public.user set password = %s where phonenum = %s;', values)
-        cursor.close()
-        conn.commit()
-        conn.close()
-        return jsonify({'state':200})
+        cursor.execute('select password from public.user where phonenum = %s;',phonenum)
+        result = cursor.fetchone()
+        if result == None:
+            cursor.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'state':401})
+        else:
+            pswd = result[0]
+            if pswd == dict['oldpassword']:
+                cursor.execute('update public.user set password = %s where phonenum = %s;', values)
+                cursor.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'state':200})
+            else:
+                cursor.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'state': 402})
     except:
         cursor.close()
         conn.commit()
