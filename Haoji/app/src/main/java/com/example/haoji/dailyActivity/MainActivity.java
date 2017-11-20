@@ -1,18 +1,31 @@
 package com.example.haoji.dailyActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.example.haoji.Database;
 import com.example.haoji.R;
 
+import java.util.ArrayList;
+
+
+import static com.tencent.open.utils.Global.getContext;
 
 
 public class MainActivity extends AppCompatActivity{
-
-
-
-
+    private SQLiteOpenHelper moh;
+    private SQLiteDatabase sd;
+    private ArrayList<day1> datelist;
+    private ListView lv;
 
 
     @Override
@@ -22,10 +35,13 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+
+
+
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        FragmentChat chatlist = new FragmentChat();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, chatlist).commit();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
 
@@ -39,20 +55,20 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                         ChatListView chatlist = new ChatListView();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, chatlist).commit();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
                         FragmentThreeDay threeday=new FragmentThreeDay();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
-                       ThreeListView  threelistview=new ThreeListView();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2,threelistview).commit();
+                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
                         break;
                     case R.id.rbWeek:
                         FragmentWeek week = new FragmentWeek();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
-                       WeekListView weeklistview = new WeekListView();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2,weeklistview).commit();
+                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
                         break;
 
                     case R.id.rbMonth:
@@ -66,6 +82,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
+
 
 
 
