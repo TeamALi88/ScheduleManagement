@@ -8,6 +8,7 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Database dbhelper;
+    private SQLiteDatabase db;
     private int year;
     private int month;
     private int day;
@@ -44,7 +46,7 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
         mAdapter = new MyAdapter(getData());
 
         //database initialize
-        dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
+
 
         //Calendar initialize
         Calendar calendar = Calendar.getInstance();
@@ -76,20 +78,25 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
 
 
     private ArrayList<String> getData() {
-       ArrayList<String> data=new ArrayList<>();
-       SQLiteDatabase db = dbhelper.getWritableDatabase();
-       Cursor cursor = db.rawQuery("select * from schedule where year="+year
-               + " and month="+month
-               + " and day="+day
+        ArrayList<String> data = new ArrayList<>();
+        dbhelper = new Database(this.getContext(), "HaojiDatabase.db", null, 1);
+        db = dbhelper.getWritableDatabase();
+       Cursor cursor = db.rawQuery("select * from schedule where year = "+year
+               + " and month = "+month
+               + " and day = " +day
                , null);
+       Log.d("getData()", ""+cursor.getColumnCount());
        if(cursor.moveToFirst()){
            do{
                String content = cursor.getString(cursor.getColumnIndex("content"));
+               String hour = cursor.getString(cursor.getColumnIndex("hour"));
+               String minute = cursor.getString(cursor.getColumnIndex("minute"));
+               data.add(hour+":"+minute);
                data.add(content);
            } while(cursor.moveToNext());
        }
        return data;
     }
 
-}
 
+}
