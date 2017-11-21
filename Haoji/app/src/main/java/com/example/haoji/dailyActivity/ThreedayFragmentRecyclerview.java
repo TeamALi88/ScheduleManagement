@@ -1,5 +1,6 @@
 package com.example.haoji.dailyActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.haoji.Database;
 import com.example.haoji.R;
 
 import java.util.ArrayList;
@@ -33,13 +35,17 @@ import java.util.ArrayList;
 public class ThreedayFragmentRecyclerview extends android.support.v4.app.Fragment {
 
     private RecyclerView mRecyclerView;
-
     private RecyclerView.Adapter mAdapter;
-
     private RecyclerView.LayoutManager mLayoutManager;
+    private int year;
+    private int month;
+    private int day;
+    private Database dbhelper;
+    private SQLiteDatabase db;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+        // TODO 三日日程显示方式待商议
         View view= inflater.inflate(R.layout.recyclerview , container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
@@ -53,8 +59,6 @@ public class ThreedayFragmentRecyclerview extends android.support.v4.app.Fragmen
 
         return  view;
     }
-
-
 
 
     private ArrayList<String> getData() {
