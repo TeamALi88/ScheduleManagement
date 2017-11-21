@@ -33,7 +33,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class login1Activity extends AppCompatActivity{
+public class login1Activity extends AppCompatActivity implements View.OnClickListener{
 //    private EditText editText1;
 //    private EditText editText2;
     private EditText userPhone;//用户名
@@ -44,61 +44,27 @@ public class login1Activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login1);
         //通过id获取各控件
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        userPhone = (EditText) findViewById(R.id.userphone);
-        passWord = (EditText) findViewById(R.id.password);
+        userPhone = (EditText) findViewById(R.id.userName);
+        passWord = (EditText) findViewById(R.id.passWord);
         loginBtn = (Button) findViewById(R.id.login);
         register = (TextView) findViewById(R.id.register);
         passForget = (TextView) findViewById(R.id.forget_psw);
+        loginBtn.setOnClickListener(this);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        //登录按钮的点击事件
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //获取手机号和密码
-                String myPhone = userPhone.getText().toString();
-                String myPass = passWord.getText().toString();
-                //构造发送的json数据
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("password",myPass);
-                    jsonObject.put("phonenum",myPhone);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //发送okhttp 请求
-                HttpUtil.sendOkHttpRequest("http://97.64.21.155:8001/user/login", jsonObject, new okhttp3.Callback() {
-                    public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                        String responseData = response.body().string();
-                        if(isValid()){
-                            if(judgeState(responseData)){       //跳转到主界面
-                                Intent intent=new Intent(login1Activity.this,dailyActivity.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                Toast.makeText(login1Activity.this,"登录失败",Toast.LENGTH_LONG);
-                            }
-                        }
-                    }
-                    public void onFailure(okhttp3.Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        });
         //跳转到注册界面
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Toast.makeText(login1Activity.this,"注册",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(login1Activity.this,RegisterActivity.class);
                 startActivity(intent);
             }
@@ -107,10 +73,54 @@ public class login1Activity extends AppCompatActivity{
         passForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Toast.makeText(login1Activity.this,"忘记密码",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(login1Activity.this,forgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
+    }
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login:
+//            //获取手机号和密码
+                String myPhone = userPhone.getText().toString();
+                String myPass = passWord.getText().toString();
+                //构造发送的json数据
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("password", myPass);
+                    jsonObject.put("phonenum", myPhone);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //发送okhttp 请求
+                HttpUtil.sendOkHttpRequest("http://97.64.21.155:8001/user/login", jsonObject, new okhttp3.Callback() {
+                    public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                        String responseData = response.body().string();
+                        if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")){
+                            showb();
+                        }
+                        else if(judgeState(responseData)){       //跳转到主界面
+//                            showb();
+                            Intent intent=new Intent(login1Activity.this,dailyActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            showa();
+                        }
+
+                    }
+
+                    public void onFailure(okhttp3.Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+
     }
 
     //判断请求返回状态
@@ -120,14 +130,6 @@ public class login1Activity extends AppCompatActivity{
             int state = jsonObject.getInt("state");
             if(state==200) {
                 return true;
-            }
-            else if(state==401){
-                Toast.makeText(this,"手机号错误",Toast.LENGTH_SHORT);
-                return false;
-            }
-            else if(state==402){
-                Toast.makeText(this,"密码错误",Toast.LENGTH_SHORT);
-                return false;
             }
             else return false;
         } catch (JSONException e) {
@@ -143,6 +145,14 @@ public class login1Activity extends AppCompatActivity{
         }
         return true;
     }
+    public void showa(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(login1Activity.this,"登录失败",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -157,6 +167,15 @@ public class login1Activity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+    public void showb(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(login1Activity.this,"用户名或密码不能为空",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
 
 }

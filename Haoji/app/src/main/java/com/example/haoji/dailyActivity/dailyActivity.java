@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.haoji.Button.DragFloatActionButton;
 
 import com.example.haoji.R;
+import com.example.haoji.userActivity.RegisterActivity;
 import com.example.haoji.userActivity.login1Activity;
 import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
@@ -165,13 +166,11 @@ public class dailyActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.info) {
             Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
                     startActivity(intent);
         } else if (id == R.id.analyse) {
-            Intent intent = new Intent(dailyActivity.this ,MainActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.refresh) {
 
         } else if (id == R.id.setting) {
