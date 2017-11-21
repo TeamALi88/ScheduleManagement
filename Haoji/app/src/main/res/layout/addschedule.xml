@@ -13,8 +13,7 @@
         android:id="@+id/tab_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rbOneday"
@@ -23,16 +22,16 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
             android:button="@null"
             android:checked="true"
             android:drawableTop="@drawable/tab_selector_weixing"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="日"
+            android:textColor="@drawable/tab_selector_tv_color"
 
 
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbThreeDay"
@@ -41,13 +40,13 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:drawableTop="@drawable/tab_selector_threeday"
             android:button="@null"
+            android:drawableTop="@drawable/tab_selector_threeday"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="3天"
-            android:textSize="20dp"/>
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbWeek"
@@ -56,13 +55,13 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
             android:button="@null"
             android:drawableTop="@drawable/tab_selector_week"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="周"
-            android:textSize="20dp"/>
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/rbMonth"
@@ -71,14 +70,14 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:drawableTop="@drawable/tab_selector_month"
             android:button="@null"
+            android:drawableTop="@drawable/tab_selector_month"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
             android:text="月"
+            android:textColor="@drawable/tab_selector_tv_color"
 
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
     </RadioGroup>
 
     <FrameLayout
@@ -93,12 +92,14 @@
 
     <FrameLayout
         android:id="@+id/fg2"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fg"
-        tools:layout_editor_absoluteX="0dp"></FrameLayout>
+        android:layout_width="0dp"
+        android:layout_height="600dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fg"></FrameLayout>
 
     <com.example.haoji.Button.SectorMenuButton
         android:id="@+id/bottom_sector_menu"
