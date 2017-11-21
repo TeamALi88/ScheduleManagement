@@ -213,6 +213,41 @@ def change_password():
         conn.close()
         return jsonify({'state': 400})
 
+@application.route('/user/reset/password', methods=['POST'])
+def reset_password():
+    conn = psycopg2.connect('host=localhost port=5432 user=dbuser password=123 dbname=exampledb')                                             
+    cursor = conn.cursor()
+    data = request.get_data()
+    dict = json.loads(data.decode("utf-8"))
+    values = (dict['newpassword'], dict['phonenum'],)
+    phonenum = (dict['phonenum'],)
+    try:
+        cursor.execute('select username from public.user where phonenum = %s;',phonenum)
+        result = cursor.fetchone()
+        if result == None:
+            cursor.close()
+            conn.commit()
+            conn.close()
+            return jsonify({'state':401})
+        else:
+            usn = result[0]
+            if usn == dict['username']:
+                cursor.execute('update public.user set password = %s where phonenum = %s;', values)
+                cursor.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'state':200})
+            else:
+                cursor.close()
+                conn.commit()
+                conn.close()
+                return jsonify({'state': 403})
+    except:
+        cursor.close()
+        conn.commit()
+        conn.close()
+        return jsonify({'state': 400})
+
 
 @application.route('/user/sync', methods=['POST'])
 def sync_data():

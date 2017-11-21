@@ -6,6 +6,7 @@
 400|请求失败
 401|手机号错误
 402|密码错误
+403|用户名错误
 
 # 接口示例
 
@@ -288,6 +289,55 @@ phonenum|是|string|手机号
   "oldpassword":"123456",
 	"newpassword":"456846142",
 	"phonenum":"987654321"
+}
+```
+
+- 返回示例
+
+```
+{
+    "state":200
+}
+```
+
+- 返回参数
+
+参数|类型|说明
+:-|:-|:-|
+state|int|状态
+
+
+- 备注
+
+## 重置密码
+
+- 简要描述
+
+  用户忘记密码时重置密码的接口
+
+- 请求url
+
+   http://97.64.21.155:8001/user/reset/password
+
+- 请求方式
+  
+  POST
+
+- 请求参数
+
+参数名|必选|类型|说明
+:-|:-:|:-|:-
+username|是|string|用户名
+newpassword|是|string|新密码
+phonenum|是|string|手机号
+
+- 请求示例
+
+```
+{
+  "username":"123",
+	"newpassword":"123",
+	"phonenum":"123"
 }
 ```
 
