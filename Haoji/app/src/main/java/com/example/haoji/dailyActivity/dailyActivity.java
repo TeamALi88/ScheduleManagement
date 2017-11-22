@@ -16,19 +16,21 @@ import android.widget.Toast;
 
 import com.example.haoji.Button.DragFloatActionButton;
 
+import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
 import com.example.haoji.userActivity.RegisterActivity;
 import com.example.haoji.userActivity.login1Activity;
 import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
 import com.example.haoji.Button.ButtonEventListener;
+import com.example.haoji.userActivity.showinfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class dailyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private GlobalVariable app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +126,7 @@ public class dailyActivity extends AppCompatActivity
                 int buttonid = index;
                 if (buttonid == 3) {
                     Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                        startActivity(intent);
+                    startActivity(intent);
                 }
             }
 
@@ -165,10 +167,18 @@ public class dailyActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        app = (GlobalVariable) getApplication();
         int id = item.getItemId();
         if (id == R.id.info) {
-            Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
-                    startActivity(intent);
+            if(app.getState()==0){//未登录状态
+                Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
+                startActivity(intent);
+            }
+            else{//已登录状态
+                Intent intent = new Intent(dailyActivity.this ,showinfoActivity.class);
+                startActivity(intent);
+            }
+
         } else if (id == R.id.analyse) {
 
         } else if (id == R.id.refresh) {
