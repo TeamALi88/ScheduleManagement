@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Haoji.iml" filepath="$PROJECT_DIR$/Haoji.iml" />
       <module fileurl="file://D:\repository\ScheduleManagement\Haoji\Haoji.iml" filepath="D:\repository\ScheduleManagement\Haoji\Haoji.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\repository\ScheduleManagement\Haoji\app\app.iml" filepath="E:\repository\ScheduleManagement\Haoji\app\app.iml" />
     </modules>
   </component>
 </project>

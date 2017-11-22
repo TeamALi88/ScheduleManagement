@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.haoji.login1Activity">
+    tools:context="com.example.haoji.userActivity.login1Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -30,53 +30,65 @@
             android:layout_height="240dp"
             android:layout_marginTop="45dp"
             android:src="@drawable/img1" />
+
         <EditText
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="用户名/手机号"
-            android:layout_marginTop="300dp"
-            android:layout_marginLeft="100dp"
+            android:layout_alignLeft="@+id/register"
+            android:layout_alignStart="@+id/register"
+            android:layout_below="@+id/image_view"
+            android:layout_marginTop="15dp"
             android:ems="10"
-            />
+            android:hint="用户名/手机号"
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/passWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="密码"
-            android:ems="10"
-            android:layout_below="@+id/userName"
             android:layout_alignLeft="@+id/userName"
-            android:layout_alignStart="@+id/userName" />
+            android:layout_alignStart="@+id/userName"
+            android:layout_below="@+id/userName"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:maxLines="1"/>
+
         <Button
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
-            android:layout_marginLeft="160dp"
-            android:text="登录"
-            />
+            android:layout_below="@+id/passWord"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/register"
+            android:layout_toRightOf="@+id/register"
+            android:text="登录" />
+
         <TextView
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/qq_Login"
+            android:layout_alignStart="@+id/qq_Login"
+            android:layout_below="@+id/login"
             android:text="注册"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="460dp"
             android:textColor="#0000ff"
-            android:textSize="22sp"
-            />
+            android:textSize="22sp" />
+
         <TextView
             android:id="@+id/forget_psw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/login"
+            android:layout_toEndOf="@+id/login"
+            android:layout_toRightOf="@+id/login"
             android:text="忘记密码？"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="460dp"
             android:textColor="#0000ff"
-            android:textSize="22sp"
-            />
+            android:textSize="22sp" />
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/qq_Login"
             android:layout_width="wrap_content"
