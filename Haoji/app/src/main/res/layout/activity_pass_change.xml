@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.a.activitybase.passChangeActivity">
+    tools:context="com.example.haoji.userActivity.passChangeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -34,7 +34,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="128dp"
             android:ems="10"
-            android:hint="请输入原密码" />
+            android:hint="请输入原密码"
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/edit_newPassword"
@@ -45,7 +46,8 @@
             android:layout_below="@+id/edit_oldPassword"
             android:layout_marginTop="58dp"
             android:ems="10"
-            android:hint="请输入新密码" />
+            android:hint="请输入新密码"
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/reedit_Password"
@@ -56,7 +58,8 @@
             android:layout_below="@+id/edit_newPassword"
             android:layout_marginTop="52dp"
             android:ems="10"
-            android:hint="重复新密码" />
+            android:hint="重复新密码"
+            android:maxLines="1"/>
 
 
         <Button

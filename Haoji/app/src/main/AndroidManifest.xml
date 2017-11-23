@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-	    android:name="com.mob.MobApplication"
+        android:name=".GlobalVariable"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -50,7 +50,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.dailyActivity.passChangeActivity"
+            android:name="com.example.haoji.userActivity.passChangeActivity"
             android:label="@string/title_activity_pass_change"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -89,5 +89,6 @@
         <meta-data android:name="Mob-AppKey" android:value="224aff414d8cc"/>
         <meta-data android:name="Mob-AppSecret" android:value="3b6bb2fa97de9bba2183f18c59e1b1c9"/>
     </application>
+
 
 </manifest>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.haoji.Button.ButtonData;
+import com.example.haoji.GlobalVariable;
 import com.example.haoji.HttpUtil;
 import com.example.haoji.R;
 import com.example.haoji.dailyActivity.dailyActivity;
@@ -41,6 +42,7 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
     private Button loginBtn;//登录按钮
     private TextView register;//注册控件
     private TextView passForget;//忘记密码
+    private GlobalVariable app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +81,17 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
 //            //获取手机号和密码
                 String myPhone = userPhone.getText().toString();
                 String myPass = passWord.getText().toString();
+                app = (GlobalVariable) getApplication();
+//                app.setUserName(myPhone);
+//                app.setUserPhone(myPhone);
+//                app.setUserPsw(myPass);
                 //构造发送的json数据
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -96,14 +103,15 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
 
                 //发送okhttp 请求
                 HttpUtil.sendOkHttpRequest("http://97.64.21.155:8001/user/login", jsonObject, new okhttp3.Callback() {
-                    public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                    public void onResponse(Call call, Response response) throws IOException {
                         String responseData = response.body().string();
                         if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")){
                             showb();
                         }
                         else if(judgeState(responseData)){       //跳转到主界面
 //                            showb();
-                            Intent intent=new Intent(login1Activity.this,dailyActivity.class);
+
+                            Intent intent=new Intent(login1Activity.this,showinfoActivity.class);
                             startActivity(intent);
                         }
                         else{
@@ -111,11 +119,14 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                         }
 
                     }
-
-                    public void onFailure(okhttp3.Call call, IOException e) {
+                    public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                     }
                 });
+                app.setState(1);
+                app.setUserName(myPhone);
+                app.setUserPhone(myPhone);
+                app.setUserPsw(myPass);
                 break;
             default:
                 break;
@@ -128,6 +139,14 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         try{
             JSONObject jsonObject = new JSONObject(responseData);
             int state = jsonObject.getInt("state");
+            String data = jsonObject.getString("data");
+            JSONObject jsonObject1 = new JSONObject(data);
+//            setGlobal(jsonObject1.getString("username"),jsonObject1.getString("userphone"),jsonObject1.getString("qq"));
+//            app = (GlobalVariable) getApplication();
+//            app.setUserName(jsonObject1.getString("username"));
+//            app.setUserPhone(jsonObject1.getString("userphone"));
+//            app.setQqNum(jsonObject1.getString("qq"));
+//            app.setUserPsw(passWord.getText().toString());
             if(state==200) {
                 return true;
             }
@@ -137,6 +156,15 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         }
         return false;
     }
+
+//    private void setGlobal(final String username, final String userphone, final String qq) {
+//                app = (GlobalVariable) getApplication();
+//                app.setUserName(username);
+//                app.setUserPhone(userphone);
+//                app.setQqNum(qq);
+//                app.setUserPsw(passWord.getText().toString());
+//    }
+
     //判断用户名和密码是否合法
     public boolean isValid(){
         if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")) {
