@@ -111,7 +111,7 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                         else if(judgeState(responseData)){       //跳转到主界面
 //                            showb();
 
-                            Intent intent=new Intent(login1Activity.this,showinfoActivity.class);
+                            Intent intent=new Intent(login1Activity.this,dailyActivity.class);
                             startActivity(intent);
                         }
                         else{
