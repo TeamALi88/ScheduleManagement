@@ -6,13 +6,14 @@ import android.app.Application;
  * Created by win10 on 2017/11/19.
  */
 
-public class GlobalVariable extends  Application{
+public class GlobalVariable extends  com.mob.MobApplication{
     private String userPhone;
     private String qqNum;
     private String wbNum;
     private String userName;
     private  String userPsw;
     private int state;
+    public com.mob.MobApplication mobApplication;
     public void setUserName(String userName){
 
         this.userName = userName;
@@ -69,3 +70,4 @@ public class GlobalVariable extends  Application{
     }
 
 }
+
