@@ -38,6 +38,11 @@ public class passChangeActivity extends AppCompatActivity implements View.OnClic
         editText1 = (EditText) findViewById(R.id.edit_newPassword);
         editText2 = (EditText) findViewById(R.id.reedit_Password);
         editText3 = (EditText) findViewById(R.id.edit_oldPassword);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         Button button = (Button) findViewById(R.id.confirm);
         button.setOnClickListener(this);
     }
@@ -87,6 +92,7 @@ public class passChangeActivity extends AppCompatActivity implements View.OnClic
                         String responseData = response.body().string();
                         //showa(responseData);
                         if(judgeState(responseData)){
+                              successTip();
                               Intent intent = new Intent(passChangeActivity.this,
                         showinfoActivity.class);
                               startActivity(intent);
@@ -133,6 +139,7 @@ public class passChangeActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+
     private void InputpswError(){
         runOnUiThread(new Runnable() {
             @Override
@@ -149,4 +156,13 @@ public class passChangeActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+    private void successTip(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(passChangeActivity.this,"修改成功",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }
