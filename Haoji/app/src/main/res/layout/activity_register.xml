@@ -57,6 +57,7 @@
             android:layout_marginTop="11dp"
             android:ems="10"
             android:maxLines="1"
+            android:inputType="textPassword"
             android:hint="密码" />
 
         <EditText
