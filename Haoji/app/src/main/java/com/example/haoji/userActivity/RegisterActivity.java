@@ -304,7 +304,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
     switch(item.getItemId()){
         case android.R.id.home:
             this.finish();
-            return true;
+            Intent intent = new Intent(RegisterActivity.this ,login1Activity.class);
+            startActivity(intent);
     }
 
     return super.onOptionsItemSelected(item);

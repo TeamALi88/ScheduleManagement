@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
+import com.example.haoji.dailyActivity.dailyActivity;
 
 public class showinfoActivity extends AppCompatActivity {
     private GlobalVariable app;
@@ -55,9 +56,9 @@ public class showinfoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish(); // back button
-                return true;
+                Intent intent = new Intent(showinfoActivity.this , dailyActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.HttpUtil;
 import com.example.haoji.R;
+import com.example.haoji.dailyActivity.dailyActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +56,8 @@ public class passChangeActivity extends AppCompatActivity implements View.OnClic
         switch(item.getItemId()){
             case android.R.id.home:
                 this.finish();
-                return true;
+                Intent intent = new Intent(passChangeActivity.this , changePasswordActivity.class);
+                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
