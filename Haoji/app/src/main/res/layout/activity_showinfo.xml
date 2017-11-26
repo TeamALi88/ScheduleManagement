@@ -125,6 +125,15 @@
             android:textSize="24sp"
             android:maxLines="1"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backLogin"
+            android:layout_below="@+id/text_view4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="退出登录"
+            />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
