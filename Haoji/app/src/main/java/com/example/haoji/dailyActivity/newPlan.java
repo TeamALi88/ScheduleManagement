@@ -57,7 +57,7 @@ public class newPlan extends AppCompatActivity {
         setContentView(R.layout.new_plan_edit);
 
         //initialize toolbar
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("日程编辑");
         setSupportActionBar(toolbar);
