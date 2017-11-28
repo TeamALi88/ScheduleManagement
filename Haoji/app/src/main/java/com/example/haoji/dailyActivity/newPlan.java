@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,12 +28,14 @@ import com.example.haoji.R;
 import java.util.Calendar;
 
 public class newPlan extends AppCompatActivity {
+    private int index;
     private int year;
     private int month;
     private int day;
     private int hour;
     private int minute;
     private Database dbhelper;
+    private SQLiteDatabase db;
     final int DATE_PICKER = 0;
     final int TIME_PICKER = 1;
     EditText editt_content;
@@ -38,16 +43,23 @@ public class newPlan extends AppCompatActivity {
     TextView textv_time;
     Button bt_confirm;
 
+    public newPlan(){
+        index = -1;
+    }
+
+    public newPlan(int id){
+        index = id;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_plan_edit);
 
-        //database helper
-        dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
-
         //initialize toolbar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("日程编辑");
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -55,21 +67,15 @@ public class newPlan extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //database helper
+        dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
+        db = dbhelper.getWritableDatabase();
+
         //initialize Views
         editt_content = (EditText) findViewById(R.id.new_plan_edit_content);
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
-
-        //set default date & time
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH)+1;
-        day = c.get(Calendar.DAY_OF_MONTH);
-        hour = c.get(Calendar.HOUR);
-        minute = c.get(Calendar.MINUTE);
-        textv_date.setText(year+"年"+month+"月"+day+"日");
-        textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
 
         //Log.d("debug", "b1");
         textv_date.setOnClickListener(new View.OnClickListener(){
@@ -89,7 +95,6 @@ public class newPlan extends AppCompatActivity {
         bt_confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                SQLiteDatabase db = dbhelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("content", editt_content.getText().toString());
                 values.put("year", year);
@@ -99,11 +104,37 @@ public class newPlan extends AppCompatActivity {
                 values.put("minute", minute);
                 values.put("remind", 0);
                 values.put("tag", "");
-                db.insert("schedule", null, values);
+                if(index==-1){
+                    db.insert("schedule", null, values);
+                }
+                else{
+                    db.update("schedule", values, "id = ?", new String[]{""+index});
+                }
                 Toast.makeText(newPlan.this, "Success!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
+
+        if(index==-1){
+            //set default date & time
+            Calendar c = Calendar.getInstance();
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH)+1;
+            day = c.get(Calendar.DAY_OF_MONTH);
+            hour = c.get(Calendar.HOUR);
+            minute = c.get(Calendar.MINUTE);
+        }
+        else{
+            Cursor cursor = db.rawQuery("select * from schedule where id = "+ index, null);
+            year = cursor.getInt(cursor.getColumnIndex("year"));
+            month = cursor.getInt(cursor.getColumnIndex("month"));
+            day = cursor.getInt(cursor.getColumnIndex("day"));
+            hour = cursor.getInt(cursor.getColumnIndex("hour"));
+            minute = cursor.getInt(cursor.getColumnIndex("minute"));
+            editt_content.setText(cursor.getString(cursor.getColumnIndex("content")));
+        }
+        textv_date.setText(year+"年"+month+"月"+day+"日");
+        textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
 
     @Override
