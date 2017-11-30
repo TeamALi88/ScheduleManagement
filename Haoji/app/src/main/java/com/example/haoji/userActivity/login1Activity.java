@@ -111,7 +111,7 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                         else if(judgeState(responseData)){       //跳转到主界面
 //                            showb();
 
-                            Intent intent=new Intent(login1Activity.this,dailyActivity.class);
+                            Intent intent=new Intent(login1Activity.this,showinfoActivity.class);
                             startActivity(intent);
                         }
                         else{
@@ -190,7 +190,8 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
       switch(item.getItemId()){
           case android.R.id.home:
               this.finish();
-              return true;
+              Intent intent = new Intent(login1Activity.this ,dailyActivity.class);
+              startActivity(intent);
       }
 
         return super.onOptionsItemSelected(item);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.HttpUtil;
 import com.example.haoji.R;
+import com.example.haoji.dailyActivity.dailyActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,7 +122,8 @@ public class changePasswordActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish(); // back button
-                return true;
+                Intent intent = new Intent(changePasswordActivity.this , showinfoActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

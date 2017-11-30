@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
+import com.example.haoji.dailyActivity.dailyActivity;
 
 public class showinfoActivity extends AppCompatActivity {
     private GlobalVariable app;
@@ -24,6 +26,7 @@ public class showinfoActivity extends AppCompatActivity {
         TextView userPhone = (TextView)findViewById(R.id.text_view6);
         TextView qqNum = (TextView)findViewById(R.id.text_view7);
         TextView wbNum = (TextView)findViewById(R.id.text_view8);
+        Button backLogin = (Button)findViewById(R.id.backLogin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -49,15 +52,22 @@ public class showinfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        backLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                app.setState(0);
+                Intent intent = new Intent(showinfoActivity.this,login1Activity.class);
+                startActivity(intent);
+            }
+        });
     }
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish(); // back button
-                return true;
+                Intent intent = new Intent(showinfoActivity.this , dailyActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

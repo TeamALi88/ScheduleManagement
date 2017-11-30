@@ -301,7 +301,8 @@ public class forgetPasswordActivity extends AppCompatActivity implements View.On
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish(); // back button
-                return true;
+                Intent intent = new Intent(forgetPasswordActivity.this , login1Activity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
