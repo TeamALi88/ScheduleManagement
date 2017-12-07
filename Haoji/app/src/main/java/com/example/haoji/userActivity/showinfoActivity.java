@@ -17,15 +17,19 @@ import com.example.haoji.dailyActivity.dailyActivity;
 
 public class showinfoActivity extends AppCompatActivity {
     private GlobalVariable app;
+    private  TextView userName;
+    private  TextView userPhone;
+    private  TextView qqNum;
+    private  TextView wbNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showinfo);
-        TextView userName = (TextView)findViewById(R.id.text_view5);
-        TextView userPhone = (TextView)findViewById(R.id.text_view6);
-        TextView qqNum = (TextView)findViewById(R.id.text_view7);
-        TextView wbNum = (TextView)findViewById(R.id.text_view8);
+        userName = (TextView)findViewById(R.id.text_view5);
+        userPhone = (TextView)findViewById(R.id.text_view6);
+        qqNum = (TextView)findViewById(R.id.text_view7);
+        wbNum = (TextView)findViewById(R.id.text_view8);
         Button backLogin = (Button)findViewById(R.id.backLogin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,13 +39,7 @@ public class showinfoActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         app = (GlobalVariable) getApplication();
-        userName.setText(app.getUserName());
-        userPhone.setText(app.getUserPhone());
-        qqNum.setText(app.getQqNum());
-        wbNum.setText(app.getWbNum());
-
-
-
+        setInfo(app);
 
         FloatingActionButton edit_info=(FloatingActionButton) findViewById(R.id.edit_info);
         edit_info.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +58,20 @@ public class showinfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    //将全局变量的值显示在对应信息上
+    public void setInfo(GlobalVariable app){
+        userName.setText(app.getUserName());
+        userPhone.setText(app.getUserPhone());
+        qqNum.setText(app.getQqNum());
+        wbNum.setText(app.getWbNum());
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        app = (GlobalVariable) getApplication();
+        setInfo(app);
     }
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
