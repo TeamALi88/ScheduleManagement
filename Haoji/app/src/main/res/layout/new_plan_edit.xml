@@ -4,13 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.haoji.dailyActivity.newPlan">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
 
     <EditText
         android:id="@+id/new_plan_edit_content"
         android:layout_width="219dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="多行输入"
@@ -24,9 +42,10 @@
         android:layout_width="47dp"
         android:layout_height="47dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout4"
         app:srcCompat="@drawable/edit" />
 
     <ImageView
@@ -34,6 +53,7 @@
         android:layout_width="47dp"
         android:layout_height="47dp"
         android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/new_plan_edit_date"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:text="2017年11月10日周五"
@@ -71,6 +92,7 @@
         android:layout_width="46dp"
         android:layout_height="47dp"
         android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +104,7 @@
         android:layout_width="219dp"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/new_plan_edit_time" />
@@ -90,12 +113,13 @@
         android:id="@+id/new_plan_edit_confirm"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:text="确认"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
@@ -110,6 +134,7 @@
         android:layout_width="219dp"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -119,24 +144,12 @@
         android:layout_width="47dp"
         android:layout_height="47dp"
         android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner2"
         app:srcCompat="@drawable/viewgallery" />
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
 
 </android.support.constraint.ConstraintLayout>

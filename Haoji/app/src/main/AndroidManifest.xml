@@ -65,6 +65,7 @@
             android:name="com.example.haoji.dailyActivity.MainActivity"
             android:label="mainActivit"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <!-- 注册SDKActivity -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
