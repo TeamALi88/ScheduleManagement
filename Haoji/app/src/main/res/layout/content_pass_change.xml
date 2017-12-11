@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.a.activitybase.passChangeActivity"
+    tools:context="com.example.haoji.userActivity.passChangeActivity"
     tools:showIn="@layout/activity_pass_change">
 
 </android.support.constraint.ConstraintLayout>
