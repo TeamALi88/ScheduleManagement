@@ -232,6 +232,4 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
-
 }
