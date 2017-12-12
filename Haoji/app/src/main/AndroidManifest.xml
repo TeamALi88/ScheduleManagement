@@ -50,6 +50,10 @@
             android:label="注册"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="com.example.haoji.dailyActivity.read_userName"
+            android:label="获取用户名"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.example.haoji.userActivity.passChangeActivity"
             android:label="修改密码"
             android:theme="@style/AppTheme.NoActionBar"/>
