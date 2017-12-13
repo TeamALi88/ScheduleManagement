@@ -1,11 +1,13 @@
 package com.example.haoji.dailyActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import android.widget.Toolbar;
 import com.example.haoji.Database;
 import com.example.haoji.R;
 
+import java.net.DatagramSocketImplFactory;
 import java.util.Calendar;
 
 public class newPlan extends AppCompatActivity {
@@ -34,15 +39,18 @@ public class newPlan extends AppCompatActivity {
     private int day;
     private int hour;
     private int minute;
+    private String tag;
     private Database dbhelper;
     private SQLiteDatabase db;
     final int DATE_PICKER = 0;
     final int TIME_PICKER = 1;
+    final int TAG_PICKER = 2;
+    final String TagArray[] = new String[]{"Tag1", "Tag2", "Tag3", "Tag4", "Tag5"};
     EditText editt_content;
     TextView textv_date;
     TextView textv_time;
+    Spinner spinner_tag;
     Button bt_confirm;
-
     public newPlan(){
         index = -1;
     }
@@ -75,8 +83,9 @@ public class newPlan extends AppCompatActivity {
         editt_content = (EditText) findViewById(R.id.new_plan_edit_content);
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
+        spinner_tag = (Spinner) findViewById(R.id.new_plan_edit_tag);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
-
+        spinner_tag.setSelection(0, true);
         //Log.d("debug", "b1");
         textv_date.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -84,7 +93,6 @@ public class newPlan extends AppCompatActivity {
                 showDialog(DATE_PICKER);
             }
         });
-
         textv_time.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -92,6 +100,19 @@ public class newPlan extends AppCompatActivity {
             }
         });
 
+        spinner_tag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String[] Tags = getResources().getStringArray(R.array.Tags);
+                tag = Tags[position];
+                //Toast.makeText(newPlan.this, "click"+ Tags[position], Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         bt_confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -103,7 +124,7 @@ public class newPlan extends AppCompatActivity {
                 values.put("hour", hour);
                 values.put("minute", minute);
                 values.put("remind", 0);
-                values.put("tag", "");
+                values.put("tag", tag);
                 if(index==-1){
                     db.insert("schedule", null, values);
                 }
@@ -164,7 +185,6 @@ public class newPlan extends AppCompatActivity {
         }
         return null;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
