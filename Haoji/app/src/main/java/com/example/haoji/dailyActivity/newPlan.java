@@ -45,7 +45,6 @@ public class newPlan extends AppCompatActivity {
     final int DATE_PICKER = 0;
     final int TIME_PICKER = 1;
     final int TAG_PICKER = 2;
-    final String TagArray[] = new String[]{"Tag1", "Tag2", "Tag3", "Tag4", "Tag5"};
     EditText editt_content;
     TextView textv_date;
     TextView textv_time;
@@ -99,7 +98,7 @@ public class newPlan extends AppCompatActivity {
                 showDialog(TIME_PICKER);
             }
         });
-
+        tag = "Tag1";//default
         spinner_tag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
