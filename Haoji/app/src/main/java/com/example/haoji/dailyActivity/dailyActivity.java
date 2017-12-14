@@ -187,6 +187,8 @@ public class dailyActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.analyse) {
+            Intent intent = new Intent(dailyActivity.this ,pieChartActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.refresh) {
 
