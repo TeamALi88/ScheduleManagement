@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Tags">
+        <item>Tag1</item>
+        <item>Tag2</item>
+        <item>Tag3</item>
+        <item>Tag4</item>
+        <item>Tag5</item>
+    </string-array>
+</resources>

@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name="com.example.haoji.dailyActivity.dailyActivity"
             android:label="@string/app_name"
@@ -50,6 +50,10 @@
             android:label="注册"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="com.example.haoji.dailyActivity.read_userName"
+            android:label="获取用户名"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.example.haoji.userActivity.passChangeActivity"
             android:label="修改密码"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -65,6 +69,15 @@
             android:name="com.example.haoji.dailyActivity.MainActivity"
             android:label="mainActivit"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <!--注册widget（桌面控件）-->
+        <receiver android:name=".myAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
 
         <!-- 注册SDKActivity -->
         <activity
