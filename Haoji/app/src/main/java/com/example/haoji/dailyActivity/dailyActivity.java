@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import android.view.LayoutInflater;
+import android.support.design.widget.NavigationView;
 import com.example.haoji.Button.DragFloatActionButton;
 
 import com.example.haoji.GlobalVariable;
@@ -24,13 +26,14 @@ import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
 import com.example.haoji.Button.ButtonEventListener;
 import com.example.haoji.userActivity.showinfoActivity;
-
+import com.example.haoji.dailyActivity.read_userName;
 import java.util.ArrayList;
 import java.util.List;
 
 public class dailyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private GlobalVariable app;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,6 @@ public class dailyActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
-
         //DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
         //addSchedule.setOnClickListener(new View.OnClickListener() {
         //@Override
@@ -47,7 +49,6 @@ public class dailyActivity extends AppCompatActivity
         //startActivity(intent);
         // }
         // });
-
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
@@ -60,9 +61,15 @@ public class dailyActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        app = (GlobalVariable) getApplication();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        textView = (TextView) headerView.findViewById(R.id.userNameSider);
+        if(app.getState()==0)
+            textView.setText("未登陆");
+        else
+        textView.setText(app.getUserName());
 
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 

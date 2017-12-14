@@ -1,14 +1,14 @@
 package com.example.haoji.dailyActivity;
 
-/**
- * Created by Administrator on 2017/11/19.
- */
+
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,66 +18,68 @@ import com.example.haoji.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2017/11/16.
- */
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private ArrayList<String> mData;
+    public OnItemClickListner mOnItemClickListener=null;
     public MyAdapter(ArrayList<String> data) {
         this.mData = data;
+
+
     }
 
-    public void updateData(ArrayList<String> data) {
+    public void updateData(ArrayList<String>data){
         this.mData = data;
+
         notifyDataSetChanged();
     }
-
-/*private SQLiteOpenHelper moh;
-    private SQLiteDatabase sd;
-    private ArrayList<String> mData;
-    moh=new Database(this,"Database.db",null,2);
-    RecyclerView.setAdapter(new RecycleViewAdapter(
-            moh.getData(),R.layout.custom_row));
-    SQLiteDatabase sqLiteDatabase= moh.getWritableDatabase();
-    Cursor cursor= sqLiteDatabase.rawQuery("select *from Schedule",null);
-    while (cursor.moveToNext()){
-
-        int index0=cursor.getColumnIndex(moh.UID);
-
-        int index1=cursor.getColumnIndex(helper.KEY_NAME);
-        int index2=cursor.getColumnIndex(helper.KEY_VALUE);
-        int index3=cursor.getColumnIndex(helper.KEY_FORMAT);
-        int index4=cursor.getColumnIndex(helper.KEY_COUNTRY);
-
-        int cid = cursor.getInt(index0);
-        String name = cursor.getString(index1);
-        String value = cursor.getString(index2);
-        String format = cursor.getString(index3);
-        String country = cursor.getString(index4);
-        String cards = new String(cid,name,value,format,country);
-
-        mData.add(cards);
+    public static interface OnItemClickListner{
+        void onItemClick(View view,int position);
 
     }
 
-    return mData;
 
-}
-*/
+/*mData.clear();
+        mData.add(data);
+        MyAdapter.notifyDataSetChange();*/
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 实例化展示的view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+
         // 实例化viewholder
         ViewHolder viewHolder = new ViewHolder(v);
+        viewHolder.mTv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if (mOnItemClickListener!=null){
+                    mOnItemClickListener.onItemClick(v,(int)v.getTag());
+                }
+            }
+
+        });
         return viewHolder;
     }
 
+
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // 绑定数据
         holder.mTv.setText(mData.get(position));
+        holder.mTv.setTag(position);
+        if(mOnItemClickListener!=null){
+            holder.mTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickListener.onItemClick(holder.itemView,position);
+
+                }
+            });
+        }
 
         /*int position = cursor.getPosition();
 
@@ -100,6 +102,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }*/
 
     }
+
+
 
     @Override
     public int getItemCount() {

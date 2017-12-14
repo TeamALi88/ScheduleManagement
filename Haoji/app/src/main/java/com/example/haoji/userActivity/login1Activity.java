@@ -66,7 +66,6 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(login1Activity.this,"注册",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(login1Activity.this,RegisterActivity.class);
                 startActivity(intent);
             }
@@ -75,7 +74,6 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         passForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(login1Activity.this,"忘记密码",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(login1Activity.this,forgetPasswordActivity.class);
                 startActivity(intent);
             }
@@ -89,9 +87,6 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                 String myPhone = userPhone.getText().toString();
                 String myPass = passWord.getText().toString();
                 app = (GlobalVariable) getApplication();
-//                app.setUserName(myPhone);
-//                app.setUserPhone(myPhone);
-//                app.setUserPsw(myPass);
                 //构造发送的json数据
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -105,17 +100,18 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                 HttpUtil.sendOkHttpRequest("http://97.64.21.155:8001/user/login", jsonObject, new okhttp3.Callback() {
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseData = response.body().string();
-                        if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")){
-                            showb();
-                        }
-                        else if(judgeState(responseData)){       //跳转到主界面
+//                        if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")){
 //                            showb();
-
-                            Intent intent=new Intent(login1Activity.this,showinfoActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            showa();
+//                        }
+                        if(isValid()){
+//                            showb();
+                            if(judgeState(responseData)){       //跳转到显示个人信息界面
+                                Intent intent=new Intent(login1Activity.this,showinfoActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                showErrorMessage(responseData);
+                            }
                         }
 
                     }
@@ -124,7 +120,7 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
                 app.setState(1);
-                app.setUserName(myPhone);
+//                app.setUserName(myPhone);
                 app.setUserPhone(myPhone);
                 app.setUserPsw(myPass);
                 break;
@@ -157,18 +153,15 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
         return false;
     }
 
-//    private void setGlobal(final String username, final String userphone, final String qq) {
-//                app = (GlobalVariable) getApplication();
-//                app.setUserName(username);
-//                app.setUserPhone(userphone);
-//                app.setQqNum(qq);
-//                app.setUserPsw(passWord.getText().toString());
-//    }
-
     //判断用户名和密码是否合法
     public boolean isValid(){
         if (userPhone.getText().toString().trim().equals("")||passWord.getText().toString().trim().equals("")) {
-            Toast.makeText(this,"用户名或密码有误",Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(login1Activity.this,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
+                }
+            });
             return false;
         }
         return true;
@@ -181,6 +174,40 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
+    private void showErrorMessage(String responseData) {
+        try{
+            JSONObject jsonObject = new JSONObject(responseData);
+            int state = jsonObject.getInt("state");
+            if(state==400){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(login1Activity.this,"登录请求失败",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else if(state==401){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(login1Activity.this,"手机号错误",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else if(state==402){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(login1Activity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,7 +231,5 @@ public class login1Activity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-
-
 
 }

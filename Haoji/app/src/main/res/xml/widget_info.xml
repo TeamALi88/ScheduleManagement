@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--用于配置widget（桌面控件）的信息
+    不是布局文件
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_layout"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen">
+</appwidget-provider>
