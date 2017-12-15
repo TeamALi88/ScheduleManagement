@@ -51,10 +51,6 @@
             android:label="注册"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".dailyActivity.read_userName"
-            android:label="获取用户名"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".userActivity.passChangeActivity"
             android:label="修改密码"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -80,6 +76,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
+        <!--桌面控件的service-->
+        <service android:name=".ListViewService"
+        android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- 注册SDKActivity -->
         <activity
