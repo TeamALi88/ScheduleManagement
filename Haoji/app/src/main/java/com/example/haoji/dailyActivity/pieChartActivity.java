@@ -1,6 +1,5 @@
 package com.example.haoji.dailyActivity;
 
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -9,15 +8,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.haoji.Database;
 import com.example.haoji.R;
-import com.mob.commons.a;
+
 // import org.achartengine.ChartFactory;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -43,7 +39,7 @@ public class pieChartActivity extends AppCompatActivity {
     private SimpleSeriesRenderer ssr3;
     private SimpleSeriesRenderer ssr4;
     private SimpleSeriesRenderer ssr5;
-    private SimpleSeriesRenderer ssr6;
+
     private Database dbhelper;
     private SQLiteDatabase db;
     private int year;
@@ -55,26 +51,6 @@ public class pieChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题
         setContentView(R.layout.activity_pie_chart);
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("数据分析");
-        setSupportActionBar(toolbar);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-//        getWindow().addFlags(
-//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//        Resources resources = getResources();
-//        int resourceId = resources.getIdentifier("status_bar_height","dimen","android");
-//        int stateBarHeight = resources.getDimensionPixelSize(resourceId);
-//
-//        TextView tvStateBar = (TextView) findViewById(R.id.tv_setting_stateBar);
-//        android.view.ViewGroup.LayoutParams setHeight = tvStateBar.getLayoutParams();
-//        setHeight.height = stateBarHeight;
-//        tvStateBar.setLayoutParams(setHeight);
-
         LinearLayout ll = (LinearLayout) findViewById(R.id.id_layout);
         view = ChartFactory.getPieChartView(this, getData(), getRenderer());
         ll.addView(view);
@@ -134,33 +110,29 @@ public class pieChartActivity extends AppCompatActivity {
             int x3 = 0 ;
             int x4 = 0;
             int x5 = 0;
-            int x6 = 0;
-            double sum;
             do {
 
                 String tagx = cursor.getString(cursor.getColumnIndex("tag"));
 
-                if (tagx.equals("未分类")) x1++;
-                if (tagx.equals("会议")) x2++;
-                if (tagx.equals("娱乐")) x3++;
-                if (tagx.equals("社交")) x4++;
-                if (tagx.equals("工作")) x5++;
-                if (tagx.equals("学习")) x6++;
+                if (tagx.equals("Tag1")) x1++;
+                if (tagx.equals("Tag2")) x2++;
+                if (tagx.equals("Tag3")) x3++;
+                if (tagx.equals("Tag4")) x4++;
+                if (tagx.equals("Tag5")) x5++;
                 //Log.d("getData()", "addData");
             } while (cursor.moveToNext());
-            sum = x1+x2+x3+x4+x5+x6;
-            double R1 = x1 / sum;
-            double R2 = x2 / sum;
-            double R3 = x3 / sum;
-            double R4 = x4 / sum;
-            double R5 = x5 / sum;
-            double R6 = x6 / sum;
-            cs.add("未分类", R1);
-            cs.add("会议", R2);
-            cs.add("娱乐", R3);
-            cs.add("社交", R4);
-            cs.add("工作", R5);
-            cs.add("学习", R6);
+
+
+            double R1 = x1 / 100.0;
+            double R2 = x2 / 100.0;
+            double R3 = x3 / 100.0;
+            double R4 = x4 / 100.0;
+            double R5 = x5 / 100.0;
+            cs.add("Tag1", R1);
+            cs.add("Tag2", R2);
+            cs.add("Tag3", R3);
+            cs.add("Tag4", R4);
+            cs.add("Tag5", R5);
 //        renderer = new DefaultRenderer();
 //        ssr1.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
 //        ssr2.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
@@ -190,12 +162,12 @@ public class pieChartActivity extends AppCompatActivity {
 
         cs = new CategorySeries("数据分析");
 
-        cs.add("未识别", 10);
-        cs.add("会议", 10);
-        cs.add("娱乐", 60);
-        cs.add("社交", 10);
-        cs.add("工作", 10);
-        cs.add("学习", 10);
+        cs.add("Tag1", 10);
+        cs.add("Tag2", 10);
+        cs.add("Tag3", 60);
+        cs.add("Tag4", 10);
+        cs.add("Tag5", 10);
+
         return cs;
     }
 
@@ -209,28 +181,25 @@ public class pieChartActivity extends AppCompatActivity {
         ssr3 = new SimpleSeriesRenderer();
         ssr4 = new SimpleSeriesRenderer();
         ssr5 = new SimpleSeriesRenderer();
-        ssr6 = new SimpleSeriesRenderer();
 
         ssr1.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr2.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr3.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr4.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr5.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
-        ssr6.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
 
         ssr1.setColor(Color.rgb(72,118,255));
         ssr2.setColor(Color.rgb(55,15,0));
         ssr3.setColor(Color.rgb(50,205,50));
         ssr4.setColor(Color.rgb(0,134,139));
         ssr5.setColor(Color.rgb(238,99,99));
-        ssr6.setColor(Color.rgb(200,150,20));
 
         renderer.addSeriesRenderer(ssr1);
         renderer.addSeriesRenderer(ssr2);
         renderer.addSeriesRenderer(ssr3);
         renderer.addSeriesRenderer(ssr4);
         renderer.addSeriesRenderer(ssr5);
-        renderer.addSeriesRenderer(ssr6);
+
         renderer.setChartTitle("数据分析");
         renderer.setShowLabels(true);//设置显示标签
         renderer.setShowLegend(true);//显示底部说明标签
@@ -243,15 +212,6 @@ public class pieChartActivity extends AppCompatActivity {
         renderer.setZoomButtonsVisible(true); //显示缩小放大图标
 
         return renderer;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish(); // back button
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     }
 
