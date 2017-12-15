@@ -94,13 +94,13 @@
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/new_plan_edit_reminder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="@+id/new_plan_edit_reminder"
         app:srcCompat="@drawable/remind" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/new_plan_edit_reminder"
         android:layout_width="219dp"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
@@ -130,14 +130,15 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/new_plan_edit_tag"
         android:layout_width="219dp"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
+        android:entries="@array/Tags"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/new_plan_edit_reminder" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -146,9 +147,9 @@
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner2"
+        app:layout_constraintBottom_toBottomOf="@+id/new_plan_edit_tag"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner2"
+        app:layout_constraintTop_toTopOf="@+id/new_plan_edit_tag"
         app:srcCompat="@drawable/viewgallery" />
 
 

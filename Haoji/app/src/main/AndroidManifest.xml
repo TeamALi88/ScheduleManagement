@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.haoji">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 配置权限，用来记录应用配置信息 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 手机定位信息，用来为语义等功能提供定位，提供更精准的服务 -->
+    <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -22,9 +43,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.example.haoji.dailyActivity.dailyActivity"
+            android:name=".dailyActivity.dailyActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,62 +55,85 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.haoji.userActivity.login1Activity"
+            android:name=".userActivity.login1Activity"
             android:label="登录"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.userActivity.showinfoActivity"
+            android:name=".userActivity.showinfoActivity"
             android:label="显示信息"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.userActivity.changePasswordActivity"
+            android:name=".userActivity.changePasswordActivity"
             android:label="修改信息"
             android:theme="@style/AppTheme.NoActionBar" />
-		 <activity
-            android:name="com.example.haoji.userActivity.RegisterActivity"
+        <activity
+            android:name=".userActivity.RegisterActivity"
             android:label="注册"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.userActivity.passChangeActivity"
+            android:name=".userActivity.passChangeActivity"
             android:label="修改密码"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.dailyActivity.newPlan"
+            android:name=".dailyActivity.newPlan"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.userActivity.forgetPasswordActivity"
+            android:name=".userActivity.forgetPasswordActivity"
             android:label="忘记密码"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.haoji.dailyActivity.MainActivity"
+            android:name=".dailyActivity.MainActivity"
             android:label="mainActivit"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 注册widget（桌面控件） -->
+        <receiver android:name=".myAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+        <!-- 桌面控件的service -->
+        <service
+            android:name=".ListViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- 注册SDKActivity -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1105602574" /> <!-- 开放平台获取的APPID -->
             </intent-filter>
         </activity>
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait"/>
-		 <activity
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- 通过AndroidManifest配置AppKey和AppSecret，如果你选择通过代码配置，则不需要配置以下meta-data -->
-        <meta-data android:name="Mob-AppKey" android:value="224aff414d8cc"/>
-        <meta-data android:name="Mob-AppSecret" android:value="3b6bb2fa97de9bba2183f18c59e1b1c9"/>
-    </application>
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="224aff414d8cc" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="3b6bb2fa97de9bba2183f18c59e1b1c9" />
 
+        <activity android:name=".dailyActivity.pieChartActivity" />
+        <activity android:name=".dailyActivity.dayActivity"></activity>
+    </application>
 
 </manifest>

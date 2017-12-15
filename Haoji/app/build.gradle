@@ -38,10 +38,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/mta-sdk-1.6.2.jar')
     implementation files('libs/open_sdk_r5788.jar')
-    
     implementation files('libs/okhttp-3.9.0.jar')
     implementation files('libs/okio-1.13.0.jar')
     implementation files('libs/gson-2.8.2.jar')
+    implementation files('libs/Msc.jar')
+    implementation files('libs/Sunflower.jar')
+    implementation files('libs/SwipeRecyclerView.jar')
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])//添加所有在libs文件夹中的jar
@@ -58,6 +60,12 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     //compile 'com.squareup.okhttp3:okhttp:3.9.0'
     //compile 'com.google.code.gson:gson:2.7'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
