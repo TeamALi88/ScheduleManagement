@@ -46,7 +46,6 @@ import com.example.haoji.userActivity.showinfoActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 public class dailyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String imgPath;
     private Handler handler;
@@ -56,10 +55,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .build();
-=======
-public class dailyActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
->>>>>>> parent of 334a62b... Merge pull request #82 from wgc12/dev
+
     private GlobalVariable app;
     private TextView textView;
     @Override
