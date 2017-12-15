@@ -76,6 +76,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
+        <!--桌面控件的service-->
+        <service android:name=".ListViewService"
+        android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- 注册SDKActivity -->
         <activity
