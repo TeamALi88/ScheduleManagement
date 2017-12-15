@@ -14,19 +14,15 @@ import android.content.Intent;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.LayoutInflater;
-import android.support.design.widget.NavigationView;
-import com.example.haoji.Button.DragFloatActionButton;
 
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
-import com.example.haoji.userActivity.RegisterActivity;
 import com.example.haoji.userActivity.login1Activity;
 import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
 import com.example.haoji.Button.ButtonEventListener;
 import com.example.haoji.userActivity.showinfoActivity;
-import com.example.haoji.dailyActivity.read_userName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +129,14 @@ public class dailyActivity extends AppCompatActivity
                 int buttonid = index;
                 if (buttonid == 3) {
                     Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                      intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
+                //    intent.putExtra("txt",test);//通过这个传递数据
                     startActivity(intent);
+                }
+                //TODO 调用语音识别,语音识别调用newPlan
+                if (buttonid == 1){
+
                 }
             }
 
