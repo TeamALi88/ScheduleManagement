@@ -43,6 +43,7 @@ dependencies {
     implementation files('libs/gson-2.8.2.jar')
     implementation files('libs/Msc.jar')
     implementation files('libs/Sunflower.jar')
+    implementation files('libs/SwipeRecyclerView.jar')
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])//添加所有在libs文件夹中的jar
