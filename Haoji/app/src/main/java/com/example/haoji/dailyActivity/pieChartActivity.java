@@ -1,4 +1,3 @@
-
 package com.example.haoji.dailyActivity;
 
 import android.content.res.Resources;
