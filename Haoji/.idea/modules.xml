@@ -3,10 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Haoji.iml" filepath="$PROJECT_DIR$/Haoji.iml" />
-<<<<<<< HEAD
-=======
-      <module fileurl="file://C:\Projects\ScheduleManagement\Haoji\Haoji.iml" filepath="C:\Projects\ScheduleManagement\Haoji\Haoji.iml" />
->>>>>>> parent of e014922... Revert "Revert "Revert "Merge pull request #82 from wgc12/dev"""
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
