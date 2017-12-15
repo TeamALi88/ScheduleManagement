@@ -41,12 +41,7 @@ dependencies {
     implementation files('libs/okhttp-3.9.0.jar')
     implementation files('libs/okio-1.13.0.jar')
     implementation files('libs/gson-2.8.2.jar')
-<<<<<<< HEAD
     implementation files('libs/SwipeRecyclerView.jar')
-=======
-    implementation files('libs/Msc.jar')
-    implementation files('libs/Sunflower.jar')
->>>>>>> parent of cf65fb0... Merge branch 'dev' into dev
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])//添加所有在libs文件夹中的jar

@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
 import android.provider.MediaStore;
 import android.database.Cursor;
 import android.net.Uri;
@@ -35,31 +34,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-=======
-import android.view.LayoutInflater;
-import android.support.design.widget.NavigationView;
-import com.example.haoji.Button.DragFloatActionButton;
->>>>>>> parent of cf65fb0... Merge branch 'dev' into dev
 
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
-import com.example.haoji.userActivity.RegisterActivity;
 import com.example.haoji.userActivity.login1Activity;
 import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
 import com.example.haoji.Button.ButtonEventListener;
 import com.example.haoji.userActivity.showinfoActivity;
-<<<<<<< HEAD
-=======
-import com.example.haoji.dailyActivity.read_userName;
-import com.google.gson.Gson;
-import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
-import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
->>>>>>> parent of cf65fb0... Merge branch 'dev' into dev
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,21 +65,12 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
-        //DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
-        //addSchedule.setOnClickListener(new View.OnClickListener() {
-        //@Override
-        //public void onClick(View view) {
-        // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-        //startActivity(intent);
-        // }
-        // });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
-<<<<<<< HEAD
         //Handler处理子进程获取的数据
         handler = new Handler() {
             @Override
@@ -111,8 +84,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
             }
         };
-=======
->>>>>>> parent of cf65fb0... Merge branch 'dev' into dev
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -167,7 +138,62 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         });
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        initBottomSectorMenuButton();
+        FragmentChat chat = new FragmentChat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+        app = (GlobalVariable) getApplication();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        textView = (TextView) headerView.findViewById(R.id.userNameSider);
+        if(app.getState()==0)
+            textView.setText("未登陆");
+        else
+            textView.setText(app.getUserName());
 
+        myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                switch (checkedId) {
+                    case R.id.rbOneday:
+                        FragmentChat chat = new FragmentChat();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+                        break;
+                    case R.id.rbThreeDay:
+                        FragmentThreeDay threeday=new FragmentThreeDay();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
+                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
+                        break;
+                    case R.id.rbWeek:
+                        FragmentWeek week = new FragmentWeek();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
+                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
+                        break;
+
+                    case R.id.rbMonth:
+                        FragmentMonth month = new FragmentMonth();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
+                                .commit();
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+    }
 
 
     private void initBottomSectorMenuButton() {
@@ -241,19 +267,16 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
             public void onButtonClicked(int index) {
                 int buttonid = index;
                 if (buttonid == 3) {
-                    initSpeech2();
-                    //Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-
-                    //startActivity(intent);
+                    Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                      intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
+                //    intent.putExtra("txt",test);//通过这个传递数据
+                    startActivity(intent);
+                }
+                //TODO 调用语音识别,语音识别调用newPlan
+                if (buttonid == 1){
 
                 }
-<<<<<<< HEAD
-=======
-
-
-            }
-
->>>>>>> parent of cf65fb0... Merge branch 'dev' into dev
 
                 if(buttonid == 2){
                     //调用相册
