@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:orientation="vertical" >
+
+
+        <TextView
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/one_note"
+            android:textSize="20dp"
+            android:paddingHorizontal="25dp"
+            android:textColor="@color/colorBlue"
+            android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

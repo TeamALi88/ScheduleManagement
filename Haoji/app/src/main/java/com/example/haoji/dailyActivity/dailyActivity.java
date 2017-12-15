@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.haoji.GlobalVariable;
 import com.example.haoji.R;
 import com.example.haoji.userActivity.login1Activity;
@@ -37,20 +38,11 @@ public class dailyActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
-        //DragFloatActionButton addSchedule = (DragFloatActionButton) findViewById(R.id.addSchedule);
-        //addSchedule.setOnClickListener(new View.OnClickListener() {
-        //@Override
-        //public void onClick(View view) {
-        // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-        //startActivity(intent);
-        // }
-        // });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -105,7 +97,62 @@ public class dailyActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        initBottomSectorMenuButton();
+        FragmentChat chat = new FragmentChat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+        app = (GlobalVariable) getApplication();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        textView = (TextView) headerView.findViewById(R.id.userNameSider);
+        if(app.getState()==0)
+            textView.setText("未登陆");
+        else
+            textView.setText(app.getUserName());
 
+        myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                switch (checkedId) {
+                    case R.id.rbOneday:
+                        FragmentChat chat = new FragmentChat();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+                        break;
+                    case R.id.rbThreeDay:
+                        FragmentThreeDay threeday=new FragmentThreeDay();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
+                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
+                        break;
+                    case R.id.rbWeek:
+                        FragmentWeek week = new FragmentWeek();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
+                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
+                        break;
+
+                    case R.id.rbMonth:
+                        FragmentMonth month = new FragmentMonth();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
+                                .commit();
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+    }
 
 
     private void initBottomSectorMenuButton() {
