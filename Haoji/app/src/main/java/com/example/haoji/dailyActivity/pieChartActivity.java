@@ -219,7 +219,7 @@ public class pieChartActivity extends AppCompatActivity {
         ssr6.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
 
         ssr1.setColor(Color.rgb(72,118,255));
-        ssr2.setColor(Color.rgb(55,15,0));
+        ssr2.setColor(Color.rgb(55,15,60));
         ssr3.setColor(Color.rgb(50,205,50));
         ssr4.setColor(Color.rgb(0,134,139));
         ssr5.setColor(Color.rgb(238,99,99));
