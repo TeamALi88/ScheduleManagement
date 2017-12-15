@@ -3,14 +3,13 @@ package com.example.haoji;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.example.haoji.dailyActivity.dailyActivity;
+import com.example.haoji.dailyActivity.MainActivity;
 
 /**
  * Created by HP on 2017/12/13.
@@ -21,8 +20,6 @@ import com.example.haoji.dailyActivity.dailyActivity;
 
 public class myAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "myWidgetProvider";
-    private RemoteViews views;
-    private ComponentName mComponentName;
     public myAppWidgetProvider(){
         super();
     }
@@ -38,19 +35,15 @@ public class myAppWidgetProvider extends AppWidgetProvider {
         for(int i=0;i<appWidgetIds.length;i++){
             int appWidgetId = appWidgetIds[i];
             Log.i("oneTableWidget", "onUpdate appWidgetId=" + appWidgetId);
-
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            intent.setClass(context, MainActivity.class);
             // 创建PendingIntent.
-            //点击“今日日程”时打开应用
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    new Intent(context, dailyActivity.class), 0);
-            views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+            //点击控件时打开应用
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0, intent, 0);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
             views.setOnClickPendingIntent(R.id.test, pendingIntent);
-            //设置listview的adapter
-            //通过ListViewService更新桌面控件的listView中的数据
-            Intent lvIntent = new Intent(context, ListViewService.class);
-            views.setRemoteAdapter(R.id.table_list, lvIntent);
-            views.setEmptyView(R.id.table_list,android.R.id.empty);
-
             appWidgetManager.updateAppWidget(appWidgetIds[i], views);
         }
     }
