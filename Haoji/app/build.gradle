@@ -41,8 +41,6 @@ dependencies {
     implementation files('libs/okhttp-3.9.0.jar')
     implementation files('libs/okio-1.13.0.jar')
     implementation files('libs/gson-2.8.2.jar')
-    implementation files('libs/Msc.jar')
-    implementation files('libs/Sunflower.jar')
     implementation files('libs/SwipeRecyclerView.jar')
 }
 dependencies {
