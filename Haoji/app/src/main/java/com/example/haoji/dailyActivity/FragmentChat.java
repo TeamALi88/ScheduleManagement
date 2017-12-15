@@ -25,22 +25,22 @@ public class FragmentChat extends Fragment {
         time = formater.format(date);
         return time;
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        View view = inflater.inflate(R.layout.chat, container, false);
+//    @Override
+//    public View onCreateView(LayoutInflater inflater,
+//                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        // TODO Auto-generated method stub
+//        View view = inflater.inflate(R.layout.chat, container, false);
+//
+//        TextView day1 = (TextView) view.findViewById(R.id.day1);
+//        Calendar c = Calendar.getInstance();
+//        Date d1 = c.getTime();
+//       /* TextView tv=new TextView();
+//        tv.setText(str);*/
+//        String str = toString(d1);
+//        day1.setText(str);
+//        return view;
 
-        TextView day1 = (TextView) view.findViewById(R.id.day1);
-        Calendar c = Calendar.getInstance();
-        Date d1 = c.getTime();
-       /* TextView tv=new TextView();
-        tv.setText(str);*/
-        String str = toString(d1);
-        day1.setText(str);
-        return view;
-
-    }
+//    }
 
 
 

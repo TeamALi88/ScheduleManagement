@@ -253,5 +253,4 @@ public class pieChartActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    }
-
+}

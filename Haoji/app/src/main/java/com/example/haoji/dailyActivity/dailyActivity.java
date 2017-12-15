@@ -1,5 +1,7 @@
 package com.example.haoji.dailyActivity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,9 @@ import android.os.Handler;
 import android.app.Activity;
 import java.io.IOException;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -66,6 +72,14 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
             .build();
     private GlobalVariable app;
     private TextView textView;
+    private int year;
+    private int month;
+    private int day;
+    private TextView DAY;
+    private int year1;
+    private int month1;
+    private int day1;
+    final int DATE_PICKER = 0;
     //private Intent intent = new Intent(dailyActivity.this ,newPlan.class);
     private void st()
     {
@@ -82,6 +96,19 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
+        DAY  = (TextView) findViewById(R.id.day);
+        Calendar c = Calendar.getInstance();
+        Date d1 = c.getTime();
+       /* TextView tv=new TextView();
+        tv.setText(str);*/
+        String str = toString(d1);
+        DAY.setText(str);
+        DAY.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showDialog(DATE_PICKER);
+            }
+        });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
@@ -115,64 +142,8 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         if(app.getState()==0)
             textView.setText("未登陆");
         else
-        textView.setText(app.getUserName());
-
-        myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO Auto-generated method stub
-                switch (checkedId) {
-                    case R.id.rbOneday:
-                        FragmentChat chat = new FragmentChat();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
-                        break;
-                    case R.id.rbThreeDay:
-                        FragmentThreeDay threeday=new FragmentThreeDay();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
-                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
-                        break;
-                    case R.id.rbWeek:
-                        FragmentWeek week = new FragmentWeek();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
-                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
-                        break;
-
-                    case R.id.rbMonth:
-                        FragmentMonth month = new FragmentMonth();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
-                                .commit();
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        });
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        initBottomSectorMenuButton();
-        FragmentChat chat = new FragmentChat();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
-        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-        app = (GlobalVariable) getApplication();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View headerView = navigationView.getHeaderView(0);
-        textView = (TextView) headerView.findViewById(R.id.userNameSider);
-        if(app.getState()==0)
-            textView.setText("未登陆");
-        else
             textView.setText(app.getUserName());
+
 
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -290,11 +261,10 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
                 if (buttonid == 1) {
                     //Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
-                     //intent.putExtra("from","dailyActivity");
-                     initSpeech( dailyActivity.this);
+                    //intent.putExtra("from","dailyActivity");
+                    initSpeech( dailyActivity.this);
                     // intent.putExtra("txt",test);
-                     // startActivity(intent);
-
+                    // startActivity(intent);
                     //initSpeech(getBaseContext());
                     //Intent intent = new Intent(dailyActivity.this ,newPlan.class);
                     //intent = getIntent()
@@ -305,9 +275,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
                 if (buttonid == 3) {
                     Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                      intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
-                //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
-                //    intent.putExtra("txt",test);//通过这个传递数据
+                    intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                    //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
+                    //    intent.putExtra("txt",test);//通过这个传递数据
                     startActivity(intent);
                 }
                 //TODO 调用语音识别,语音识别调用newPlan
@@ -433,6 +403,40 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    protected Dialog onCreateDialog(int id){
+        switch(id){
+            case DATE_PICKER:
+                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
+                    @Override
+                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
+                        year1 = _year;
+                        month1 = _month+1;
+                        day1 = _day;
+                        DAY.setText(year1+"-"+month1+"-"+day1);
+                    }
+                };
+                return new DatePickerDialog(this,dateListener,year1,month1,day1);
+
+
+        }
+//        app = (GlobalVariable) getApplication();
+//        app = GlobalVariable.getInstance();
+//        app.setDay(day1);
+//        app.setYear(year1);
+//        app.setMonth(month1);
+        return null;
+    }
+    public static String toString(Date date) {
+
+        String time;
+        SimpleDateFormat formater = new SimpleDateFormat();
+        formater.applyPattern("yyyy-MM-dd");
+        time = formater.format(date);
+        return time;
+    }
+
+
 
 
 
