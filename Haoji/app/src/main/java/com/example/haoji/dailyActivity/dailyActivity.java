@@ -15,6 +15,25 @@ import android.content.Intent;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.provider.MediaStore;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Message;
+import android.os.Handler;
+import android.app.Activity;
+import java.io.IOException;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 
 import com.example.haoji.GlobalVariable;
@@ -37,6 +56,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class dailyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private String imgPath;
+    private Handler handler;
+    private static final int IMAGE = 1;
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build();
     private GlobalVariable app;
     private TextView textView;
     //private Intent intent = new Intent(dailyActivity.this ,newPlan.class);
@@ -60,6 +87,20 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+
+        //Handler处理子进程获取的数据
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                intent.putExtra("from", "Main");
+                intent.putExtra("txt",val);
+                startActivity(intent);
+            }
+        };
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -186,6 +227,57 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setListener(sectorMenuButton);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //获取图片路径
+        if (requestCode == IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            imgPath = c.getString(columnIndex);
+            c.close();
+            //生成发送OCR请求子进程
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    File file = new File(imgPath);
+                    RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpg"),file);
+                    RequestBody requestBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("apikey","b5a900dce088957")
+                            .addFormDataPart("file","image.jpg",fileBody)
+                            .addFormDataPart("language","chs")
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("https://api.ocr.space/parse/image")
+                            .post(requestBody)
+                            .build();
+                    try {
+                        Response response = client.newCall(request).execute();
+                        String jsonString = response.body().string();
+                        try {
+                            JSONArray jsonArray = new JSONObject(jsonString).getJSONArray("ParsedResults");
+                            String jsonString1 = jsonArray.getString(0);
+                            String jsonString2 = new JSONObject(jsonString1).getString("ParsedText");
+                            Message msg = new Message();
+                            Bundle data = new Bundle();
+                            data.putString("value", jsonString2);
+                            msg.setData(data);
+                            handler.sendMessage(msg);
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    }catch(IOException ex){
+                        ex.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
     private void setListener(final SectorMenuButton button) {
 
         button.setButtonEventListener(new ButtonEventListener() {
@@ -221,6 +313,13 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 //TODO 调用语音识别,语音识别调用newPlan
                 if (buttonid == 1){
 
+                }
+
+                if(buttonid == 2){
+                    //调用相册
+                    Intent intent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, IMAGE);
                 }
             }
 
