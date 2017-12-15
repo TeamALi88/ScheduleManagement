@@ -106,7 +106,7 @@ public class newPlan extends AppCompatActivity {
 
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
-        if(from!="Main") {
+        if(!from.equals("Main")) {
             index = 0;
             hearing = intent.getStringExtra("txt");
             Toast.makeText(newPlan.this,hearing.substring(0),Toast.LENGTH_LONG).show();

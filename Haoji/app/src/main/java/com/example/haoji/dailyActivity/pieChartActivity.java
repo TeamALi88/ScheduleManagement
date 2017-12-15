@@ -1,5 +1,6 @@
 package com.example.haoji.dailyActivity;
 
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -8,8 +9,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.haoji.Database;
 import com.example.haoji.R;
@@ -51,6 +55,26 @@ public class pieChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题
         setContentView(R.layout.activity_pie_chart);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("数据分析");
+        setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+//        getWindow().addFlags(
+//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        Resources resources = getResources();
+        int resourceId = resources.getIdentifier("status_bar_height","dimen","android");
+        int stateBarHeight = resources.getDimensionPixelSize(resourceId);
+
+        TextView tvStateBar = (TextView) findViewById(R.id.tv_setting_stateBar);
+        android.view.ViewGroup.LayoutParams setHeight = tvStateBar.getLayoutParams();
+        setHeight.height = stateBarHeight;
+        tvStateBar.setLayoutParams(setHeight);
+
         LinearLayout ll = (LinearLayout) findViewById(R.id.id_layout);
         view = ChartFactory.getPieChartView(this, getData(), getRenderer());
         ll.addView(view);
@@ -212,6 +236,15 @@ public class pieChartActivity extends AppCompatActivity {
         renderer.setZoomButtonsVisible(true); //显示缩小放大图标
 
         return renderer;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     }
 
