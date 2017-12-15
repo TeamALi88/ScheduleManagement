@@ -1,5 +1,6 @@
 package com.example.haoji.dailyActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,18 +24,34 @@ import com.example.haoji.Button.SectorMenuButton;
 import com.example.haoji.Button.ButtonData;
 import com.example.haoji.Button.ButtonEventListener;
 import com.example.haoji.userActivity.showinfoActivity;
+import com.google.gson.Gson;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class dailyActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class dailyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GlobalVariable app;
     private TextView textView;
+    //private Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+    private void st()
+    {
+        String str;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidebar);
+        //申明appid
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
@@ -170,10 +187,30 @@ public class dailyActivity extends AppCompatActivity
     }
 
     private void setListener(final SectorMenuButton button) {
+
         button.setButtonEventListener(new ButtonEventListener() {
+
             @Override
+
             public void onButtonClicked(int index) {
+
                 int buttonid = index;
+
+                if (buttonid == 1) {
+                    //Intent intent = new Intent(dailyActivity.this ,login1Activity.class);
+                     //intent.putExtra("from","dailyActivity");
+                     initSpeech( dailyActivity.this);
+                    // intent.putExtra("txt",test);
+                     // startActivity(intent);
+
+                    //initSpeech(getBaseContext());
+                    //Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                    //intent = getIntent()
+                    //startActivity(intent);
+
+
+                }
+
                 if (buttonid == 3) {
                     Intent intent = new Intent(dailyActivity.this ,newPlan.class);
                       intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
@@ -187,15 +224,95 @@ public class dailyActivity extends AppCompatActivity
                 }
             }
 
+
+
             @Override
+
             public void onExpand() {
+
+            }
+
+
+
+            @Override
+
+            public void onCollapse() {
+
+            }
+
+        });
+
+    }
+    ///测试代码
+    public void initSpeech2( ) {
+        Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+
+        startActivity(intent);
+    }
+    public void initSpeech( Context context) {
+        final String test;
+        //1.创建RecognizerDialog对象
+        RecognizerDialog mDialog = new RecognizerDialog(context, null);
+        //2.设置accent、language等参数
+        mDialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        mDialog.setParameter(SpeechConstant.ACCENT, "mandarin");
+        //3.设置回调接口
+        mDialog.setListener(new RecognizerDialogListener() {
+            @Override
+            public void onResult(RecognizerResult recognizerResult, boolean isLast) {
+                if (!isLast) {
+                    //解析语音
+                    Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                    intent.putExtra("from","dailyActivity");
+                    String test= parseVoice(recognizerResult.getResultString());
+                    intent.putExtra("txt",test);
+                    startActivity(intent);
+                }
             }
 
             @Override
-            public void onCollapse() {
+            public void onError(SpeechError speechError) {
+
             }
         });
+        //4.显示dialog，接收语音输入
+        mDialog.show();
+
     }
+
+    /**
+     * 解析语音json
+     */
+    public String parseVoice(String resultString) {
+        Gson gson = new Gson();
+        Voice voiceBean = gson.fromJson(resultString, Voice.class);
+
+        StringBuffer sb = new StringBuffer();
+        ArrayList<Voice.WSBean> ws = voiceBean.ws;
+        for (Voice.WSBean wsBean : ws) {
+            String word = wsBean.cw.get(0).w;
+            sb.append(word);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 语音对象封装
+     */
+    public class Voice {
+
+        public ArrayList<WSBean> ws;
+
+        public class WSBean {
+            public ArrayList<CWBean> cw;
+        }
+
+        public class CWBean {
+            public String w;
+        }
+    }
+
+
 
     private void showToast(String text) {
         Toast.makeText(dailyActivity.this, text, Toast.LENGTH_SHORT).show();
@@ -217,6 +334,9 @@ public class dailyActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
+
 
 
 
