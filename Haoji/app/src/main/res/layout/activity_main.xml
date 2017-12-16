@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/content1"
+        android:textSize="25sp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioGroup
+        android:id="@+id/tab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbOneday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="@drawable/tab_selector_checked_bg"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/tab_selector_weixing"
+            android:gravity="center_horizontal|bottom"
+            android:paddingTop="2dp"
+            android:text="日"
+            android:textColor="@drawable/tab_selector_tv_color"
+
+
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/rbThreeDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/tab_selector_checked_bg"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_selector_threeday"
+            android:gravity="center_horizontal|bottom"
+            android:paddingTop="2dp"
+            android:text="3天"
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/rbWeek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/tab_selector_checked_bg"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_selector_week"
+            android:gravity="center_horizontal|bottom"
+            android:paddingTop="2dp"
+            android:text="周"
+            android:textColor="@drawable/tab_selector_tv_color"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/rbMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/tab_selector_checked_bg"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_selector_month"
+            android:gravity="center_horizontal|bottom"
+            android:paddingTop="2dp"
+            android:text="月"
+            android:textColor="@drawable/tab_selector_tv_color"
+
+            android:textSize="20dp" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fg2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+

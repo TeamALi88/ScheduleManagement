@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Tags">
+        <item>未分类</item>
+        <item>会议</item>
+        <item>娱乐</item>
+        <item>社交</item>
+        <item>工作</item>
+        <item>学习</item>
+    </string-array>
+</resources>
