@@ -1,5 +1,7 @@
 package com.example.haoji.dailyActivity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,9 @@ import android.os.Handler;
 import android.app.Activity;
 import java.io.IOException;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -55,9 +61,19 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class dailyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String imgPath;
     private Handler handler;
+    private int year;
+    private int month;
+    private int day;
+    TextView dateChoose;
+    private TextView DAY;
+    private int year1;
+    private int month1;
+    private int day1;
+    final int DATE_PICKER = 0;
     private static final int IMAGE = 1;
     OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
@@ -82,6 +98,19 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
+        DAY  = (TextView) findViewById(R.id.day);
+        Calendar c = Calendar.getInstance();
+        Date d1 = c.getTime();
+       /* TextView tv=new TextView();
+        tv.setText(str);*/
+        String str = toString(d1);
+        DAY.setText(str);
+        DAY.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showDialog(DATE_PICKER);
+            }
+        });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
@@ -436,6 +465,37 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
 
 
+    protected Dialog onCreateDialog(int id){
+        switch(id){
+            case DATE_PICKER:
+                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
+                    @Override
+                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
+                        year1 = _year;
+                        month1 = _month+1;
+                        day1 = _day;
+                        DAY.setText(year1+"-"+month1+"-"+day1);
+                    }
+                };
+                return new DatePickerDialog(this,dateListener,year1,month1,day1);
+
+
+        }
+//        app = (GlobalVariable) getApplication();
+//        app = GlobalVariable.getInstance();
+//        app.setDay(day1);
+//        app.setYear(year1);
+//        app.setMonth(month1);
+        return null;
+    }
+    public static String toString(Date date) {
+
+        String time;
+        SimpleDateFormat formater = new SimpleDateFormat();
+        formater.applyPattern("yyyy-MM-dd");
+        time = formater.format(date);
+        return time;
+    }
 
 
 
