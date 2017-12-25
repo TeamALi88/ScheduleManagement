@@ -117,7 +117,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
-        //Handler处理子进程获取的数据
+        //Handler处理子进程获取的网络数据
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
