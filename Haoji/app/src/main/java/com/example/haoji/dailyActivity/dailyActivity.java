@@ -333,11 +333,12 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 }
 
                 if (buttonid == 3) {
-                    Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                      intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                   // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                      //intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                     initSpeech2( dailyActivity.this);
                 //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
                 //    intent.putExtra("txt",test);//通过这个传递数据
-                    startActivity(intent);
+                   // startActivity(intent);
                 }
                 //TODO 调用语音识别,语音识别调用newPlan
                 if (buttonid == 1){
