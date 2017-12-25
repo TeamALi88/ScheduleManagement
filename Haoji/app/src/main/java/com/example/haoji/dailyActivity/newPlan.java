@@ -88,7 +88,7 @@ public class newPlan extends AppCompatActivity {
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
         spinner_tag = (Spinner) findViewById(R.id.new_plan_edit_tag);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
-        spinner_tag.setSelection(0, true);
+        spinner_tag.setSelection(1, true);
         //Log.d("debug", "b1");
         textv_date.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -177,6 +177,10 @@ public class newPlan extends AppCompatActivity {
         textv_date.setText(year+"年"+month+"月"+day+"日");
         textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
+
+
+
+
 
     @Override
     protected Dialog onCreateDialog(int id){
