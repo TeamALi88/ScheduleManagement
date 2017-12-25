@@ -21,6 +21,7 @@ import com.example.haoji.dailyActivity.dailyActivity;
 
 public class myAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "myWidgetProvider";
+    public static final String ACTION_ITEM_CLICK = "android.appwidget.action.CNTVNEWS_ITEM_CLICK";
     private RemoteViews views;
     private ComponentName mComponentName;
     public myAppWidgetProvider(){
@@ -50,6 +51,11 @@ public class myAppWidgetProvider extends AppWidgetProvider {
             Intent lvIntent = new Intent(context, ListViewService.class);
             views.setRemoteAdapter(R.id.table_list, lvIntent);
             views.setEmptyView(R.id.table_list,android.R.id.empty);
+
+            // 设置item点击事件的intent模板
+            // listview不能像普通的按钮一样通过 setOnClickPendingIntent 设置点击事件
+            Intent listViewItemClickIntent = new Intent(ACTION_ITEM_CLICK);
+            PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context,appWidgetIds[i], listViewItemClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], views);
         }
