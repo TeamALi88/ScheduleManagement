@@ -1,4 +1,4 @@
-package com.example.haoji.dailyActivity;
+﻿package com.example.haoji.dailyActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -74,6 +74,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     private int month1;
     private int day1;
     private Calendar c;
+    private String s;
+    private String[] ss;
+    private int y,m,d;
     final int DATE_PICKER = 0;
     private static final int IMAGE = 1;
     OkHttpClient client = new OkHttpClient.Builder()
@@ -100,7 +103,11 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
+
         c = Calendar.getInstance();
+        y = c.get(Calendar.YEAR);
+        m = c.get(Calendar.MONTH)+1;
+        d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
         tv.setText(str);*/
@@ -109,6 +116,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         DAY.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
 //                showDialog(DATE_PICKER);
                     //Calendar c = Calendar.getInstance();
                     // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
@@ -121,6 +129,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                                                       int monthOfYear, int dayOfMonth) {
                                     DAY.setText(year + "-" + (monthOfYear+1)
                                             + "-" + dayOfMonth);
+                                    y = year;
+                                    m = monthOfYear;
+                                    d = dayOfMonth;
                                 }
                             }
                             // 设置初始日期
@@ -131,12 +142,14 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 //                        DAY.setText(i+"-"+i1+"-"+i2);
 //                    }
 //                });
+                OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
 
                 }
             });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
@@ -178,7 +191,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
@@ -213,7 +226,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         initBottomSectorMenuButton();
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
         app = (GlobalVariable) getApplication();
@@ -235,7 +248,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
