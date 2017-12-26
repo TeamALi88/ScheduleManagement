@@ -53,6 +53,8 @@ public class newPlan extends AppCompatActivity {
     TextView textv_date;
     TextView textv_time;
     Spinner spinner_tag;
+    Spinner spinner_remind;
+    int remind;
     Button bt_confirm;
     public newPlan(){
         index = -1;
@@ -87,6 +89,7 @@ public class newPlan extends AppCompatActivity {
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
         spinner_tag = (Spinner) findViewById(R.id.new_plan_edit_tag);
+        spinner_remind = (Spinner) findViewById(R.id.new_plan_edit_reminder);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
         spinner_tag.setSelection(0, true);
         //Log.d("debug", "b1");
@@ -102,7 +105,7 @@ public class newPlan extends AppCompatActivity {
                 showDialog(TIME_PICKER);
             }
         });
-        tag = "Tag1";//default
+        tag = "未分类";//default
 
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
@@ -124,7 +127,17 @@ public class newPlan extends AppCompatActivity {
 
             }
         });
+        spinner_remind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 1) remind = 1;
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         bt_confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -135,15 +148,20 @@ public class newPlan extends AppCompatActivity {
                 values.put("day", day);
                 values.put("hour", hour);
                 values.put("minute", minute);
-                values.put("remind", 0);
+                values.put("remind", remind);
                 values.put("tag", tag);
                 if(index==-1){
                     db.insert("schedule", null, values);
+                    if(remind == 1){
+                        //alarm
+                    }
                 }
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});
                 }
-                Toast.makeText(newPlan.this, "Success!", Toast.LENGTH_SHORT).show();
+                String s;
+                s = "year"+year+"month"+month+"day"+day;
+                Toast.makeText(newPlan.this, s, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -178,6 +196,10 @@ public class newPlan extends AppCompatActivity {
         textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
 
+
+
+
+
     @Override
     protected Dialog onCreateDialog(int id){
         switch(id){
@@ -186,9 +208,9 @@ public class newPlan extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int _year, int _month, int _day){
                         year = _year;
-                        month = _month;
+                        month = _month+1;
                         day = _day;
-                        textv_date.setText(year+"年"+month+"月"+day+"日");
+                        textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
                     }
                 };
                 return new DatePickerDialog(this,dateListener,year,month,day);

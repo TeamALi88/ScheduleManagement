@@ -128,6 +128,8 @@ public class pieChartActivity extends AppCompatActivity {
 //        int x1 = 1;
 //        int x2 = 2;
 //        int x3 = 3;
+
+
         if (cursor.moveToFirst()) {
             int x1 = 0;
             int x2 = 0;
@@ -135,14 +137,14 @@ public class pieChartActivity extends AppCompatActivity {
             int x4 = 0;
             int x5 = 0;
             int x6 = 0;
-            double sum;
+            double sum=0;
             do {
 
                 String tagx = cursor.getString(cursor.getColumnIndex("tag"));
 
-                if (tagx.equals("未分类")) x1++;
+                if (tagx.equals("娱乐")) x1++;
                 if (tagx.equals("会议")) x2++;
-                if (tagx.equals("娱乐")) x3++;
+                if (tagx.equals("未分类")) x3++;
                 if (tagx.equals("社交")) x4++;
                 if (tagx.equals("工作")) x5++;
                 if (tagx.equals("学习")) x6++;
@@ -155,9 +157,9 @@ public class pieChartActivity extends AppCompatActivity {
             double R4 = x4 / sum;
             double R5 = x5 / sum;
             double R6 = x6 / sum;
-            cs.add("未分类", R1);
+            cs.add("娱乐" , R1);
             cs.add("会议", R2);
-            cs.add("娱乐", R3);
+            cs.add("未分类", R3);
             cs.add("社交", R4);
             cs.add("工作", R5);
             cs.add("学习", R6);
@@ -178,7 +180,7 @@ public class pieChartActivity extends AppCompatActivity {
             renderer.setLabelsTextSize(70);//设置标签字体大小，
             renderer.setAntialiasing(true);//消失锯齿
             renderer.setApplyBackgroundColor(true);//想要添加背景要先申请
-            renderer.setBackgroundColor(Color.DKGRAY);
+            renderer.setBackgroundColor(Color.WHITE);
             view.repaint();//重画,不写就不会显示动态变化
 
 
@@ -189,13 +191,14 @@ public class pieChartActivity extends AppCompatActivity {
     public CategorySeries getData() {
 
         cs = new CategorySeries("数据分析");
-
-        cs.add("未识别", 10);
         cs.add("会议", 10);
-        cs.add("娱乐", 60);
+        cs.add("学习", 10);
+
+        cs.add("娱乐", 50);
         cs.add("社交", 10);
         cs.add("工作", 10);
-        cs.add("学习", 10);
+
+        cs.add("未分类", 10);
         return cs;
     }
 
@@ -210,6 +213,13 @@ public class pieChartActivity extends AppCompatActivity {
         ssr4 = new SimpleSeriesRenderer();
         ssr5 = new SimpleSeriesRenderer();
         ssr6 = new SimpleSeriesRenderer();
+
+        ssr1.setDisplayChartValuesDistance(30);
+        ssr2.setDisplayChartValuesDistance(30);
+        ssr3.setDisplayChartValuesDistance(30);
+        ssr4.setDisplayChartValuesDistance(30);
+        ssr5.setDisplayChartValuesDistance(30);
+        ssr6.setDisplayChartValuesDistance(30);
 
         ssr1.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr2.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
@@ -237,14 +247,14 @@ public class pieChartActivity extends AppCompatActivity {
         renderer.setLabelsTextSize(70);//设置标签字体大小，
         renderer.setAntialiasing(true);//消失锯齿
         renderer.setApplyBackgroundColor(true);//想要添加背景要先申请
-        renderer.setBackgroundColor(Color.DKGRAY);
+        renderer.setBackgroundColor(Color.WHITE);
         renderer.setChartTitleTextSize(100);
-        renderer.setDisplayValues(true);   //显示数据,这个不写就不会显示出百分比。。
+        renderer.setDisplayValues(true); //显示数据,这个不写就不会显示出百分比。。
         renderer.setZoomButtonsVisible(true); //显示缩小放大图标
 
         return renderer;
     }
-    @Override
+  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -255,3 +265,6 @@ public class pieChartActivity extends AppCompatActivity {
     }
     }
 
+/*SimpleSeriesRenderer seriesrenderer =renderer.getSeriesRendererAt(1);
+seriesrenderer.setDisplayChartValues(true);
+seriesrenderer.setDisplayChartValuesDistance(30);*/

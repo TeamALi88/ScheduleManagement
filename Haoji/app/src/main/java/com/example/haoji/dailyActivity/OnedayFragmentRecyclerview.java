@@ -1,4 +1,5 @@
 package com.example.haoji.dailyActivity;
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import static android.support.v4.content.ContextCompat.startActivity;
  * Created by Administrator on 2017/11/17.
  */
 
+@SuppressLint("ValidFragment")
 public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment {
 
     private RecyclerView mRecyclerView;
@@ -43,11 +45,16 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
     private int month;
     private int day;
 
+    public OnedayFragmentRecyclerview(int year,int month,int day){
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         // TODO 单日日程显示不对齐
         View view = inflater.inflate(R.layout.recyclerview, container, false);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mAdapter = new MyAdapter(getData());
         mRecyclerView.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +92,9 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
 
         //Calendar initialize
         Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+//        year = calendar.get(Calendar.YEAR);
+//        month = calendar.get(Calendar.MONTH)+1;
+//        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         //database initialize
         dbhelper = new Database(this.getContext(), "HaojiDatabase.db", null, 1);
@@ -109,6 +116,9 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
         Cursor cursor = db.rawQuery("select * from schedule where year = "+year
                 + " and month = "+month
                 + " and day = " +day,null);
+        String s;
+        s = "year"+year+"month"+month+"day"+day;
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
         //Log.d("getData()", ""+cursor.getCount());
         //Log.d("getData():Date", "year:"+year+"month:"+month+"day:"+day);
 
