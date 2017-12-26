@@ -105,6 +105,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         DAY  = (TextView) findViewById(R.id.day);
 
         c = Calendar.getInstance();
+        y = c.get(Calendar.YEAR);
+        m = c.get(Calendar.MONTH)+1;
+        d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
         tv.setText(str);*/
@@ -113,6 +116,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         DAY.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
 //                showDialog(DATE_PICKER);
                     //Calendar c = Calendar.getInstance();
                     // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
