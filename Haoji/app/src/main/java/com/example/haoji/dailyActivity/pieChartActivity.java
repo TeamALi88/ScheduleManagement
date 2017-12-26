@@ -63,17 +63,7 @@ public class pieChartActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-//        getWindow().addFlags(
-//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//        Resources resources = getResources();
-//        int resourceId = resources.getIdentifier("status_bar_height","dimen","android");
-//        int stateBarHeight = resources.getDimensionPixelSize(resourceId);
-//
-//        TextView tvStateBar = (TextView) findViewById(R.id.tv_setting_stateBar);
-//        android.view.ViewGroup.LayoutParams setHeight = tvStateBar.getLayoutParams();
-//        setHeight.height = stateBarHeight;
-//        tvStateBar.setLayoutParams(setHeight);
+
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.id_layout);
         view = ChartFactory.getPieChartView(this, getData(), getRenderer());
@@ -109,11 +99,6 @@ public class pieChartActivity extends AppCompatActivity {
 
 
         cs.clear();//清空之前的数据
-
-//        Random random = new Random();
-//        int R1 = random.nextInt(100);
-//        int R2 = random.nextInt(100);
-//        int R3 = random.nextInt(100);
         // 设置种类名称和对应的数值，前面是（key,value）键值对
 
         Calendar calendar = Calendar.getInstance();
@@ -123,12 +108,6 @@ public class pieChartActivity extends AppCompatActivity {
         dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
         db = dbhelper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from schedule where year = " + year + " and month = " + month + " and day = " + day, null);
-        //Log.d("getData()", ""+cursor.getCount());
-        //Log.d("getData():Date", "year:"+year+"month:"+month+"day:"+day);
-//        int x1 = 1;
-//        int x2 = 2;
-//        int x3 = 3;
-
 
         if (cursor.moveToFirst()) {
             int x1 = 0;
@@ -139,9 +118,7 @@ public class pieChartActivity extends AppCompatActivity {
             int x6 = 0;
             double sum=0;
             do {
-
                 String tagx = cursor.getString(cursor.getColumnIndex("tag"));
-
                 if (tagx.equals("娱乐")) x1++;
                 if (tagx.equals("会议")) x2++;
                 if (tagx.equals("未分类")) x3++;
@@ -150,6 +127,7 @@ public class pieChartActivity extends AppCompatActivity {
                 if (tagx.equals("学习")) x6++;
                 //Log.d("getData()", "addData");
             } while (cursor.moveToNext());
+
             sum = x1+x2+x3+x4+x5+x6;
             double R1 = x1 / sum;
             double R2 = x2 / sum;
@@ -157,33 +135,23 @@ public class pieChartActivity extends AppCompatActivity {
             double R4 = x4 / sum;
             double R5 = x5 / sum;
             double R6 = x6 / sum;
-            cs.add("娱乐" , R1);
-            cs.add("会议", R2);
-            cs.add("未分类", R3);
+            cs.add("娱乐" ,R1);
+            cs.add("会议",R2);
+            cs.add("未分类",R3);
             cs.add("社交", R4);
             cs.add("工作", R5);
             cs.add("学习", R6);
-//        renderer = new DefaultRenderer();
-//        ssr1.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
-//        ssr2.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
-//        ssr3.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
-//        ssr1.setColor(Color.BLACK);
-//        ssr2.setColor(Color.YELLOW);
-//        ssr3.setColor(Color.CYAN);
-//        renderer.addSeriesRenderer(ssr1);
-//        renderer.addSeriesRenderer(ssr2);
-//        renderer.addSeriesRenderer(ssr3);
 
             //让底部说明标签显示,如果不行,那就只会在初始化的时候显示一次
             renderer.setShowLabels(true);//设置显示标签
-            renderer.setShowLegend(true);//显示底部说明标签
-            renderer.setLabelsTextSize(70);//设置标签字体大小，
+           // renderer.setShowLegend(true);//显示底部说明标签
+            renderer.setShowLegend(false);
+            renderer.setLabelsTextSize(40);//设置标签字体大小，
+            renderer.setLabelsColor(Color.BLACK);
             renderer.setAntialiasing(true);//消失锯齿
             renderer.setApplyBackgroundColor(true);//想要添加背景要先申请
             renderer.setBackgroundColor(Color.WHITE);
             view.repaint();//重画,不写就不会显示动态变化
-
-
         }
     }
     //创建饼图
@@ -193,11 +161,9 @@ public class pieChartActivity extends AppCompatActivity {
         cs = new CategorySeries("数据分析");
         cs.add("会议", 10);
         cs.add("学习", 10);
-
         cs.add("娱乐", 50);
         cs.add("社交", 10);
         cs.add("工作", 10);
-
         cs.add("未分类", 10);
         return cs;
     }
@@ -228,12 +194,12 @@ public class pieChartActivity extends AppCompatActivity {
         ssr5.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
         ssr6.setChartValuesFormat(NumberFormat.getPercentInstance());// 设置百分比
 
-        ssr1.setColor(Color.rgb(72,118,255));
-        ssr2.setColor(Color.rgb(55,15,0));
-        ssr3.setColor(Color.rgb(50,205,50));
-        ssr4.setColor(Color.rgb(0,134,139));
-        ssr5.setColor(Color.rgb(238,99,99));
-        ssr6.setColor(Color.rgb(200,150,20));
+        ssr1.setColor(Color.rgb(255,255,0));//娱乐
+        ssr2.setColor(Color.rgb(34,139,34));
+        ssr3.setColor(Color.rgb(0,134,139));
+        ssr4.setColor(Color.rgb(64,224,205));
+        ssr5.setColor(Color.rgb(227,23,13));
+        ssr6.setColor(Color.rgb(255,128,0));
 
         renderer.addSeriesRenderer(ssr1);
         renderer.addSeriesRenderer(ssr2);
@@ -243,18 +209,18 @@ public class pieChartActivity extends AppCompatActivity {
         renderer.addSeriesRenderer(ssr6);
         renderer.setChartTitle("数据分析");
         renderer.setShowLabels(true);//设置显示标签
-        renderer.setShowLegend(true);//显示底部说明标签
-        renderer.setLabelsTextSize(70);//设置标签字体大小，
+        renderer.setShowLegend(false);//显示底部说明标签
+        renderer.setLabelsTextSize(40);//设置标签字体大小，
         renderer.setAntialiasing(true);//消失锯齿
         renderer.setApplyBackgroundColor(true);//想要添加背景要先申请
         renderer.setBackgroundColor(Color.WHITE);
         renderer.setChartTitleTextSize(100);
         renderer.setDisplayValues(true); //显示数据,这个不写就不会显示出百分比。。
-        renderer.setZoomButtonsVisible(true); //显示缩小放大图标
+        //renderer.setZoomButtonsVisible(true); //显示缩小放大图标
 
         return renderer;
     }
-  @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -263,8 +229,4 @@ public class pieChartActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    }
-
-/*SimpleSeriesRenderer seriesrenderer =renderer.getSeriesRendererAt(1);
-seriesrenderer.setDisplayChartValues(true);
-seriesrenderer.setDisplayChartValuesDistance(30);*/
+}
