@@ -53,6 +53,8 @@ public class newPlan extends AppCompatActivity {
     TextView textv_date;
     TextView textv_time;
     Spinner spinner_tag;
+    Spinner spinner_remind;
+    int remind;
     Button bt_confirm;
     public newPlan(){
         index = -1;
@@ -87,6 +89,7 @@ public class newPlan extends AppCompatActivity {
         textv_date = (TextView) findViewById(R.id.new_plan_edit_date);
         textv_time = (TextView) findViewById(R.id.new_plan_edit_time);
         spinner_tag = (Spinner) findViewById(R.id.new_plan_edit_tag);
+        spinner_remind = (Spinner) findViewById(R.id.new_plan_edit_reminder);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
         spinner_tag.setSelection(1, true);
         //Log.d("debug", "b1");
@@ -124,7 +127,17 @@ public class newPlan extends AppCompatActivity {
 
             }
         });
+        spinner_remind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 1) remind = 1;
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         bt_confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -135,10 +148,13 @@ public class newPlan extends AppCompatActivity {
                 values.put("day", day);
                 values.put("hour", hour);
                 values.put("minute", minute);
-                values.put("remind", 0);
+                values.put("remind", remind);
                 values.put("tag", tag);
                 if(index==-1){
                     db.insert("schedule", null, values);
+                    if(remind == 1){
+                        //alarm
+                    }
                 }
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});

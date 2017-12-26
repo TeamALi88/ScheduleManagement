@@ -73,6 +73,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     private int year1;
     private int month1;
     private int day1;
+    private Calendar c;
     final int DATE_PICKER = 0;
     private static final int IMAGE = 1;
     OkHttpClient client = new OkHttpClient.Builder()
@@ -99,7 +100,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
         tv.setText(str);*/
@@ -108,16 +109,38 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         DAY.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                showDialog(DATE_PICKER);
-            }
-        });
+//                showDialog(DATE_PICKER);
+                    //Calendar c = Calendar.getInstance();
+                    // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+                    new DatePickerDialog(dailyActivity.this,
+                            // 绑定监听器
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    DAY.setText(year + "-" + (monthOfYear+1)
+                                            + "-" + dayOfMonth);
+                                }
+                            }
+                            // 设置初始日期
+                            , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
+                            .get(Calendar.DAY_OF_MONTH)).show();
+//                datepicker.init(year, month-1, day, new DatePicker.OnDateChangedListener() {
+//                    public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+//                        DAY.setText(i+"-"+i1+"-"+i2);
+//                    }
+//                });
+
+                }
+            });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
-        //Handler处理子进程获取的数据
+        //Handler处理子进程获取的网络数据
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -333,11 +356,12 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 }
 
                 if (buttonid == 3) {
-                    Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                      intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                   // Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                      //intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                     initSpeech2( dailyActivity.this);
                 //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
                 //    intent.putExtra("txt",test);//通过这个传递数据
-                    startActivity(intent);
+                   // startActivity(intent);
                 }
                 //TODO 调用语音识别,语音识别调用newPlan
                 if (buttonid == 1){
@@ -465,29 +489,29 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
 
 
-    protected Dialog onCreateDialog(int id){
-        switch(id){
-            case DATE_PICKER:
-                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
-                    @Override
-                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
-                        year1 = _year;
-                        month1 = _month+1;
-                        day1 = _day;
-                        DAY.setText(year1+"-"+month1+"-"+day1);
-                    }
-                };
-                return new DatePickerDialog(this,dateListener,year1,month1,day1);
-
-
-        }
-//        app = (GlobalVariable) getApplication();
-//        app = GlobalVariable.getInstance();
-//        app.setDay(day1);
-//        app.setYear(year1);
-//        app.setMonth(month1);
-        return null;
-    }
+//    protected Dialog onCreateDialog(int id){
+//        switch(id){
+//            case DATE_PICKER:
+//                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
+//                    @Override
+//                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
+//                        year1 = _year;
+//                        month1 = _month+1;
+//                        day1 = _day;
+//                        DAY.setText(year1+"-"+month1+"-"+day1);
+//                    }
+//                };
+//                return new DatePickerDialog(this,dateListener,year1,month1,day1);
+//
+//
+//        }
+////        app = (GlobalVariable) getApplication();
+////        app = GlobalVariable.getInstance();
+////        app.setDay(day1);
+////        app.setYear(year1);
+////        app.setMonth(month1);
+//        return null;
+//    }
     public static String toString(Date date) {
 
         String time;
