@@ -254,7 +254,7 @@ public class pieChartActivity extends AppCompatActivity {
 
         return renderer;
     }
-  /*  @Override
+  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -262,7 +262,7 @@ public class pieChartActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
     }
 
 /*SimpleSeriesRenderer seriesrenderer =renderer.getSeriesRendererAt(1);
