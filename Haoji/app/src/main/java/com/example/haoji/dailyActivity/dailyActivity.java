@@ -74,6 +74,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     private int month1;
     private int day1;
     private Calendar c;
+    private String s;
+    private String[] ss;
+    private int y,m,d;
     final int DATE_PICKER = 0;
     private static final int IMAGE = 1;
     OkHttpClient client = new OkHttpClient.Builder()
@@ -100,6 +103,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
+
         c = Calendar.getInstance();
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
@@ -121,6 +125,9 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                                                       int monthOfYear, int dayOfMonth) {
                                     DAY.setText(year + "-" + (monthOfYear+1)
                                             + "-" + dayOfMonth);
+                                    y = year;
+                                    m = monthOfYear;
+                                    d = dayOfMonth;
                                 }
                             }
                             // 设置初始日期
@@ -131,12 +138,19 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 //                        DAY.setText(i+"-"+i1+"-"+i2);
 //                    }
 //                });
+                OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
 
                 }
             });
+//        s = DAY.getText().toString();
+//        ss = s.split("-");
+//        y = Integer.parseInt(ss[0]);
+//        m = Integer.parseInt(ss[1]);
+//        d = Integer.parseInt(ss[2]);
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
@@ -178,7 +192,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
@@ -213,7 +227,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         initBottomSectorMenuButton();
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
         app = (GlobalVariable) getApplication();
@@ -235,7 +249,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
