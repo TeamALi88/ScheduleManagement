@@ -1,4 +1,4 @@
-package com.example.haoji.dailyActivity;
+﻿package com.example.haoji.dailyActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -147,11 +147,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
                 }
             });
-//        s = DAY.getText().toString();
-//        ss = s.split("-");
-//        y = Integer.parseInt(ss[0]);
-//        m = Integer.parseInt(ss[1]);
-//        d = Integer.parseInt(ss[2]);
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
