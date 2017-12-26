@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity{
     private SQLiteDatabase sd;
     private ArrayList<day1> datelist;
     private ListView lv;
+    private int y,m,d;
 
 
     @Override
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity{
 
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
                     case R.id.rbThreeDay:
