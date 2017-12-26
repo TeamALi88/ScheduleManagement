@@ -47,7 +47,6 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
         // TODO Auto-generated method stub
         // TODO 单日日程显示不对齐
         View view = inflater.inflate(R.layout.recyclerview, container, false);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mAdapter = new MyAdapter(getData());
         mRecyclerView.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +108,9 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
         Cursor cursor = db.rawQuery("select * from schedule where year = "+year
                 + " and month = "+month
                 + " and day = " +day,null);
+        String s;
+        s = "year"+year+"month"+month+"day"+day;
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
         //Log.d("getData()", ""+cursor.getCount());
         //Log.d("getData():Date", "year:"+year+"month:"+month+"day:"+day);
 

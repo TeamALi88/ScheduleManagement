@@ -91,7 +91,7 @@ public class newPlan extends AppCompatActivity {
         spinner_tag = (Spinner) findViewById(R.id.new_plan_edit_tag);
         spinner_remind = (Spinner) findViewById(R.id.new_plan_edit_reminder);
         bt_confirm = (Button) findViewById(R.id.new_plan_edit_confirm);
-        spinner_tag.setSelection(1, true);
+        spinner_tag.setSelection(0, true);
         //Log.d("debug", "b1");
         textv_date.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -105,7 +105,7 @@ public class newPlan extends AppCompatActivity {
                 showDialog(TIME_PICKER);
             }
         });
-        tag = "Tag1";//default
+        tag = "未分类";//default
 
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
@@ -159,7 +159,9 @@ public class newPlan extends AppCompatActivity {
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});
                 }
-                Toast.makeText(newPlan.this, "Success!", Toast.LENGTH_SHORT).show();
+                String s;
+                s = "year"+year+"month"+month+"day"+day;
+                Toast.makeText(newPlan.this, s, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -206,7 +208,7 @@ public class newPlan extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int _year, int _month, int _day){
                         year = _year;
-                        month = _month;
+                        month = _month+1;
                         day = _day;
                         textv_date.setText(year+"年"+month+"月"+day+"日");
                     }
