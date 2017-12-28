@@ -76,9 +76,8 @@
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/qq_Login"
-            android:layout_alignStart="@+id/qq_Login"
             android:layout_below="@+id/login"
+            android:layout_toStartOf="@+id/login"
             android:text="注册"
             android:textColor="#0000ff"
             android:textSize="22sp" />
@@ -93,14 +92,6 @@
             android:text="忘记密码？"
             android:textColor="#0000ff"
             android:textSize="22sp" />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/qq_Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="500dp"
-            app:backgroundTint="@android:color/background_light"
-            app:srcCompat="@drawable/qq" />
     </RelativeLayout>
 
 

@@ -18,8 +18,7 @@
         <RadioButton
             android:id="@+id/rbOneday"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/tab_selector_checked_bg"
             android:button="@null"
@@ -27,66 +26,65 @@
             android:drawableTop="@drawable/tab_selector_weixing"
             android:gravity="center_horizontal|bottom"
             android:paddingTop="2dp"
-            android:text="日"
+
             android:textColor="@drawable/tab_selector_tv_color"
 
 
-            android:textSize="20dp" />
-
-        <RadioButton
-            android:id="@+id/rbThreeDay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@drawable/tab_selector_checked_bg"
-            android:button="@null"
-            android:drawableTop="@drawable/tab_selector_threeday"
-            android:gravity="center_horizontal|bottom"
-            android:paddingTop="2dp"
-            android:text="3天"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:textSize="20dp" />
-
-        <RadioButton
-            android:id="@+id/rbWeek"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@drawable/tab_selector_checked_bg"
-            android:button="@null"
-            android:drawableTop="@drawable/tab_selector_week"
-            android:gravity="center_horizontal|bottom"
-            android:paddingTop="2dp"
-            android:text="周"
-            android:textColor="@drawable/tab_selector_tv_color"
-            android:textSize="20dp" />
-
-        <RadioButton
-            android:id="@+id/rbMonth"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@drawable/tab_selector_checked_bg"
-            android:button="@null"
-            android:drawableTop="@drawable/tab_selector_month"
-            android:gravity="center_horizontal|bottom"
-            android:paddingTop="2dp"
-            android:text="月"
-            android:textColor="@drawable/tab_selector_tv_color"
-
-            android:textSize="20dp" />
+            android:textSize="20dp" /> <!--android:text="日"--><!--android:layout_gravity="top"-->
     </RadioGroup>
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbThreeDay"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/tab_selector_checked_bg"-->
+            <!--android:button="@null"-->
+            <!--android:drawableTop="@drawable/tab_selector_threeday"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:paddingTop="2dp"-->
+            <!--android:text="3天"-->
+            <!--android:textColor="@drawable/tab_selector_tv_color"-->
+            <!--android:textSize="20dp" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbWeek"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/tab_selector_checked_bg"-->
+            <!--android:button="@null"-->
+            <!--android:drawableTop="@drawable/tab_selector_week"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:paddingTop="2dp"-->
+            <!--android:text="周"-->
+            <!--android:textColor="@drawable/tab_selector_tv_color"-->
+            <!--android:textSize="20dp" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbMonth"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/tab_selector_checked_bg"-->
+            <!--android:button="@null"-->
+            <!--android:drawableTop="@drawable/tab_selector_month"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:paddingTop="2dp"-->
+            <!--android:text="月"-->
+            <!--android:textColor="@drawable/tab_selector_tv_color"-->
+
+            <!--android:textSize="20dp" />-->
+    <!--</RadioGroup>-->
 
     <FrameLayout
         android:id="@+id/fg"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="41dp"
         app:layout_constraintTop_toBottomOf="@+id/tab_menu"
         tools:layout_editor_absoluteX="0dp">
-
     </FrameLayout>
 
 

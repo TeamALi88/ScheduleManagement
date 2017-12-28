@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,10 @@ public class showinfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showinfo);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         userName = (TextView)findViewById(R.id.text_view5);
         userPhone = (TextView)findViewById(R.id.text_view6);
         qqNum = (TextView)findViewById(R.id.text_view7);

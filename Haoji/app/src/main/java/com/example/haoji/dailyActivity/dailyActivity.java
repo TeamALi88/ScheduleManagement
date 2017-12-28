@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -73,6 +74,10 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     private int year1;
     private int month1;
     private int day1;
+    private Calendar c;
+    private String s;
+    private String[] ss;
+    private int y,m,d;
     final int DATE_PICKER = 0;
     private static final int IMAGE = 1;
     OkHttpClient client = new OkHttpClient.Builder()
@@ -93,13 +98,35 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidebar);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         //申明appid
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
-        Calendar c = Calendar.getInstance();
+        //Handler处理子进程获取的数据
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+                System.out.println(val);
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                intent.putExtra("from","dailyActivity");
+                intent.putExtra("txt", val);
+                startActivity(intent);
+            }
+        };
+        //会自动跳到当日
+        c = Calendar.getInstance();
+        y = c.get(Calendar.YEAR);
+        m = c.get(Calendar.MONTH);
+        d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
         tv.setText(str);*/
@@ -108,16 +135,44 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         DAY.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                showDialog(DATE_PICKER);
-            }
-        });
+
+//                showDialog(DATE_PICKER);
+                    //Calendar c = Calendar.getInstance();
+                    // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+                    new DatePickerDialog(dailyActivity.this,
+                            // 绑定监听器
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    DAY.setText(year + "-" + (monthOfYear+1)
+                                            + "-" + dayOfMonth);
+                                    y = year;
+                                    m = monthOfYear;
+                                    d = dayOfMonth;
+                                }
+                            }
+                            // 设置初始日期
+                            , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
+                            .get(Calendar.DAY_OF_MONTH)).show();
+//                datepicker.init(year, month-1, day, new DatePicker.OnDateChangedListener() {
+//                    public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+//                        DAY.setText(i+"-"+i1+"-"+i2);
+//                    }
+//                });
+                OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+
+                }
+            });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
-        //Handler处理子进程获取的数据
+        //Handler处理子进程获取的网络数据
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -130,7 +185,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
             }
         };
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -146,6 +200,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         else
         textView.setText(app.getUserName());
 
+
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -155,27 +210,27 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
-                    case R.id.rbThreeDay:
-                        FragmentThreeDay threeday=new FragmentThreeDay();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
-                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
-                        break;
-                    case R.id.rbWeek:
-                        FragmentWeek week = new FragmentWeek();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
-                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
-                        break;
-
-                    case R.id.rbMonth:
-                        FragmentMonth month = new FragmentMonth();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
-                                .commit();
-                        break;
+//                    case R.id.rbThreeDay:
+//                        FragmentThreeDay threeday=new FragmentThreeDay();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
+//                        ThreedayFragmentRecyclerview threedaylist  new  ThreedayFragmentRecyclerview();
+//                        getSupportFragmentManager().beginTransaction().repla=ce(R.id.fg2, threedaylist).commit();
+//                        break;
+//                    case R.id.rbWeek:
+//                        FragmentWeek week = new FragmentWeek();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
+//                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
+//                        break;
+//
+//                    case R.id.rbMonth:
+//                        FragmentMonth month = new FragmentMonth();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
+//                                .commit();
+//                        break;
                     default:
                         break;
                 }
@@ -187,12 +242,64 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onStart(){
         super.onStart();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
+        //申明appid
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         initBottomSectorMenuButton();
+        DAY  = (TextView) findViewById(R.id.day);
+
+        c = Calendar.getInstance();
+        y = c.get(Calendar.YEAR);
+        m = c.get(Calendar.MONTH);
+        d = c.get(Calendar.DAY_OF_MONTH);
+        Date d1 = c.getTime();
+       /* TextView tv=new TextView();
+        tv.setText(str);*/
+        String str = toString(d1);
+        DAY.setText(str);
+        DAY.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+//                showDialog(DATE_PICKER);
+                //Calendar c = Calendar.getInstance();
+                // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+                new DatePickerDialog(dailyActivity.this,
+                        // 绑定监听器
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                DAY.setText(year + "-" + (monthOfYear+1)
+                                        + "-" + dayOfMonth);
+                                y = year;
+                                m = monthOfYear;
+                                d = dayOfMonth;
+                            }
+                        }
+                        // 设置初始日期
+                        , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
+                        .get(Calendar.DAY_OF_MONTH)).show();
+//                datepicker.init(year, month-1, day, new DatePicker.OnDateChangedListener() {
+//                    public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+//                        DAY.setText(i+"-"+i1+"-"+i2);
+//                    }
+//                });
+                OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+
+            }
+        });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+
         app = (GlobalVariable) getApplication();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -203,6 +310,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         else
             textView.setText(app.getUserName());
 
+
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -212,27 +320,27 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                     case R.id.rbOneday:
                         FragmentChat chat = new FragmentChat();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
-                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview();
+                        OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
                         break;
-                    case R.id.rbThreeDay:
-                        FragmentThreeDay threeday=new FragmentThreeDay();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
-                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
-                        break;
-                    case R.id.rbWeek:
-                        FragmentWeek week = new FragmentWeek();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
-                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
-                        break;
-
-                    case R.id.rbMonth:
-                        FragmentMonth month = new FragmentMonth();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
-                                .commit();
-                        break;
+//                    case R.id.rbThreeDay:
+//                        FragmentThreeDay threeday=new FragmentThreeDay();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,threeday).commit();
+//                        ThreedayFragmentRecyclerview threedaylist = new  ThreedayFragmentRecyclerview();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, threedaylist).commit();
+//                        break;
+//                    case R.id.rbWeek:
+//                        FragmentWeek week = new FragmentWeek();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg,week).commit();
+//                        WeekFragmentRecyclerview weeklist = new  WeekFragmentRecyclerview();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg2, weeklist).commit();
+//                        break;
+//
+//                    case R.id.rbMonth:
+//                        FragmentMonth month = new FragmentMonth();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fg, month)
+//                                .commit();
+//                        break;
                     default:
                         break;
                 }
@@ -323,7 +431,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                      initSpeech( dailyActivity.this);
                     // intent.putExtra("txt",test);
                      // startActivity(intent);
-
                     //initSpeech(getBaseContext());
                     //Intent intent = new Intent(dailyActivity.this ,newPlan.class);
                     //intent = getIntent()
@@ -333,16 +440,13 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 }
 
                 if (buttonid == 3) {
-                    Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                   Intent intent = new Intent(dailyActivity.this ,newPlan.class);
                       intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
                 //    String test="啊啊啊啊2017年05月10日12时18分啊啊啊啊";严格按照这个格式，前导零不能没有且年份长度为4，其他长度为2
-                //    intent.putExtra("txt",test);//通过这个传递数据
-                    startActivity(intent);
+                    // intent.putExtra("txt",test);//通过这个传递数据
+                   startActivity(intent);
                 }
                 //TODO 调用语音识别,语音识别调用newPlan
-                if (buttonid == 1){
-
-                }
 
                 if(buttonid == 2){
                     //调用相册
@@ -465,29 +569,29 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
 
 
-    protected Dialog onCreateDialog(int id){
-        switch(id){
-            case DATE_PICKER:
-                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
-                    @Override
-                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
-                        year1 = _year;
-                        month1 = _month+1;
-                        day1 = _day;
-                        DAY.setText(year1+"-"+month1+"-"+day1);
-                    }
-                };
-                return new DatePickerDialog(this,dateListener,year1,month1,day1);
-
-
-        }
-//        app = (GlobalVariable) getApplication();
-//        app = GlobalVariable.getInstance();
-//        app.setDay(day1);
-//        app.setYear(year1);
-//        app.setMonth(month1);
-        return null;
-    }
+//    protected Dialog onCreateDialog(int id){
+//        switch(id){
+//            case DATE_PICKER:
+//                DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
+//                    @Override
+//                    public void onDateSet(DatePicker view, int _year, int _month, int _day){
+//                        year1 = _year;
+//                        month1 = _month+1;
+//                        day1 = _day;
+//                        DAY.setText(year1+"-"+month1+"-"+day1);
+//                    }
+//                };
+//                return new DatePickerDialog(this,dateListener,year1,month1,day1);
+//
+//
+//        }
+////        app = (GlobalVariable) getApplication();
+////        app = GlobalVariable.getInstance();
+////        app.setDay(day1);
+////        app.setYear(year1);
+////        app.setMonth(month1);
+//        return null;
+//    }
     public static String toString(Date date) {
 
         String time;

@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
         android:layout_margin="16dp"
-        app:backgroundTint="?attr/colorPrimary"
+        app:backgroundTint="#6676ca"
         app:srcCompat="@drawable/edit" />
 
     <include layout="@layout/content_showinfo" />

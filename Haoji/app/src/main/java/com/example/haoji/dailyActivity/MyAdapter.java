@@ -22,11 +22,19 @@ import static android.support.v4.content.ContextCompat.startActivity;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private ArrayList<String> mData;
-    public OnItemClickListner mOnItemClickListener=null;
+    public OnItemClickListener mOnItemClickListener;
+
     public MyAdapter(ArrayList<String> data) {
         this.mData = data;
 
 
+    }
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     public void updateData(ArrayList<String>data){
@@ -69,18 +77,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // 绑定数据
+//        holder.mTv.setText(mData.get(position));
+//        holder.mTv.setTag(position);
+//        if(mOnItemClickListener!=null){
+//            holder.mTv.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mOnItemClickListener.onItemClick(holder.itemView,position);
+//
+//                }
+//            });
+//        }
         holder.mTv.setText(mData.get(position));
-        holder.mTv.setTag(position);
-        if(mOnItemClickListener!=null){
+        //判断是否设置了监听器
+        if(mOnItemClickListener != null){
+            //为ItemView设置监听器
             holder.mTv.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    mOnItemClickListener.onItemClick(holder.itemView,position);
-
+                public void onClick(View v) {
+                    int position = holder.getLayoutPosition(); // 1
+                    mOnItemClickListener.onItemClick(holder.itemView,position); // 2
                 }
             });
         }
-
         /*int position = cursor.getPosition();
 
         holder.tv_dateTime.setText(cursor.getString(cursor.getColumnIndex(NoteDbAdapter.COL_DATETIME)));
