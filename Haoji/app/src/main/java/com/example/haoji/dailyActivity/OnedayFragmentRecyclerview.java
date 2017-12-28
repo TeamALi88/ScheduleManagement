@@ -86,10 +86,9 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
         mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                Intent intent = new Intent(getActivity() ,newPlan.class);
-//                intent.putExtra("from", "Change");//调用的时候要把"Main"改成其他的就行
-//                startActivity(intent);
-                Toast.makeText(getActivity(),"click "+position,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity() ,newPlan.class);
+                intent.putExtra("from", "Main");//调用的时候要把"Main"改成其他的就行
+                startActivity(intent);
             }
         });
 
