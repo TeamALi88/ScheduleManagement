@@ -210,7 +210,7 @@ public class newPlan extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int _year, int _month, int _day){
                         year = _year;
-                        month = _month+1;
+                        month = _month;
                         day = _day;
                         textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
                     }

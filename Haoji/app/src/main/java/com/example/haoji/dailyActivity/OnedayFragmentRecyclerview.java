@@ -44,7 +44,9 @@ public class OnedayFragmentRecyclerview extends android.support.v4.app.Fragment 
     private int year;
     private int month;
     private int day;
+    public OnedayFragmentRecyclerview(){
 
+    }
     public OnedayFragmentRecyclerview(int year,int month,int day){
         this.year = year;
         this.month = month;
