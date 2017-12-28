@@ -169,6 +169,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         else
         textView.setText(app.getUserName());
 
+
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override

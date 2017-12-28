@@ -82,10 +82,6 @@
             android:name=".userActivity.forgetPasswordActivity"
             android:label="忘记密码"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".dailyActivity.MainActivity"
-            android:label="mainActivit"
-            android:theme="@style/AppTheme.NoActionBar" />
         <!-- 注册widget（桌面控件） -->
         <receiver android:name=".myAppWidgetProvider">
             <intent-filter>
