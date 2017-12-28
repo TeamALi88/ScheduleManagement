@@ -165,8 +165,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
-<<<<<<< HEAD
- RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
         //Handler处理子进程获取的网络数据
         handler = new Handler() {
@@ -181,10 +180,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
             }
         };
-
-=======
-        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
->>>>>>> parent of 941fe9e... Revert "Merge pull request #97 from juin1997/dev"
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
