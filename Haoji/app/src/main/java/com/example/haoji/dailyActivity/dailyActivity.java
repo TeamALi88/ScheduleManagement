@@ -1,4 +1,4 @@
-﻿package com.example.haoji.dailyActivity;
+package com.example.haoji.dailyActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -103,7 +103,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
-
+        //会自动跳到当日
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
         m = c.get(Calendar.MONTH)+1;
@@ -182,6 +182,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         else
         textView.setText(app.getUserName());
 
+
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -223,12 +224,74 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onStart(){
         super.onStart();
+        //申明appid
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         initBottomSectorMenuButton();
+        DAY  = (TextView) findViewById(R.id.day);
+
+        c = Calendar.getInstance();
+        y = c.get(Calendar.YEAR);
+        m = c.get(Calendar.MONTH)+1;
+        d = c.get(Calendar.DAY_OF_MONTH);
+        Date d1 = c.getTime();
+       /* TextView tv=new TextView();
+        tv.setText(str);*/
+        String str = toString(d1);
+        DAY.setText(str);
+        DAY.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+//                showDialog(DATE_PICKER);
+                //Calendar c = Calendar.getInstance();
+                // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+                new DatePickerDialog(dailyActivity.this,
+                        // 绑定监听器
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                DAY.setText(year + "-" + (monthOfYear+1)
+                                        + "-" + dayOfMonth);
+                                y = year;
+                                m = monthOfYear;
+                                d = dayOfMonth;
+                            }
+                        }
+                        // 设置初始日期
+                        , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
+                        .get(Calendar.DAY_OF_MONTH)).show();
+//                datepicker.init(year, month-1, day, new DatePicker.OnDateChangedListener() {
+//                    public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+//                        DAY.setText(i+"-"+i1+"-"+i2);
+//                    }
+//                });
+                OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
+
+            }
+        });
         FragmentChat chat = new FragmentChat();
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+
+        //Handler处理子进程获取的网络数据
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                intent.putExtra("from", "Main");
+                intent.putExtra("txt",val);
+                startActivity(intent);
+            }
+        };
+
         app = (GlobalVariable) getApplication();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -238,6 +301,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
             textView.setText("未登陆");
         else
             textView.setText(app.getUserName());
+
 
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 

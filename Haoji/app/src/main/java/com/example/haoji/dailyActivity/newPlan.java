@@ -109,17 +109,22 @@ public class newPlan extends AppCompatActivity {
 
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
-        if(!from.equals("Main")) {
+
+        if(!from.equals("Main")&&!from.equals("Change")) {
             index = 0;
             hearing = intent.getStringExtra("txt");
             Toast.makeText(newPlan.this,hearing.substring(0),Toast.LENGTH_LONG).show();
+        }
+        else if(from.equals("Change")){
+            String s= intent.getStringExtra("txt");
+            index= Integer.parseInt(s);
         }
         spinner_tag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] Tags = getResources().getStringArray(R.array.Tags);
                 tag = Tags[position];
-                //Toast.makeText(newPlan.this, "click"+ Tags[position], Toast.LENGTH_LONG).show();
+                Toast.makeText(newPlan.this, "click"+ Tags[position], Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -159,9 +164,6 @@ public class newPlan extends AppCompatActivity {
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});
                 }
-                String s;
-                s = "year"+year+"month"+month+"day"+day;
-                Toast.makeText(newPlan.this, s, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -208,7 +210,7 @@ public class newPlan extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int _year, int _month, int _day){
                         year = _year;
-                        month = _month+1;
+                        month = _month;
                         day = _day;
                         textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
                     }
