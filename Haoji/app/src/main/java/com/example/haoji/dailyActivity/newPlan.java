@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
+import android.view.WindowManager;
 import com.example.haoji.Database;
 import com.example.haoji.R;
 
@@ -69,8 +69,12 @@ public class newPlan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_plan_edit);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//修改状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//修改状态栏
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
+
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//修改状态栏
         //getWindow().setStatusBarColor(Color.TRANSPARENT);//修改状态栏
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("日程编辑");
@@ -125,7 +129,6 @@ public class newPlan extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] Tags = getResources().getStringArray(R.array.Tags);
                 tag = Tags[position];
-                Toast.makeText(newPlan.this, "click"+ Tags[position], Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -173,7 +176,7 @@ public class newPlan extends AppCompatActivity {
             //set default date & time
             Calendar c = Calendar.getInstance();
             year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH) + 1;
+            month = c.get(Calendar.MONTH);
             day = c.get(Calendar.DAY_OF_MONTH);
             hour = c.get(Calendar.HOUR);
             minute = c.get(Calendar.MINUTE);
@@ -195,7 +198,7 @@ public class newPlan extends AppCompatActivity {
             minute = cursor.getInt(cursor.getColumnIndex("minute"));
             editt_content.setText(cursor.getString(cursor.getColumnIndex("content")));
         }
-        textv_date.setText(year+"年"+month+"月"+day+"日");
+        textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
         textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
 

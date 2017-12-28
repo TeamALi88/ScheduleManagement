@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -97,16 +98,34 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidebar);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         //申明appid
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
+        //Handler处理子进程获取的数据
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+                System.out.println(val);
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                intent.putExtra("from","dailyActivity");
+                intent.putExtra("txt", val);
+                startActivity(intent);
+            }
+        };
         //会自动跳到当日
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
-        m = c.get(Calendar.MONTH)+1;
+        m = c.get(Calendar.MONTH);
         d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
@@ -151,7 +170,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fg, chat).commit();
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
- RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
+        RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
 
         //Handler处理子进程获取的网络数据
         handler = new Handler() {
@@ -166,7 +185,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
             }
         };
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -224,6 +242,10 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onStart(){
         super.onStart();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         //申明appid
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         initBottomSectorMenuButton();
@@ -231,7 +253,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
-        m = c.get(Calendar.MONTH)+1;
+        m = c.get(Calendar.MONTH);
         d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
@@ -277,20 +299,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-
-        //Handler处理子进程获取的网络数据
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Bundle data = msg.getData();
-                String val = data.getString("value");
-                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                intent.putExtra("from", "Main");
-                intent.putExtra("txt",val);
-                startActivity(intent);
-            }
-        };
 
         app = (GlobalVariable) getApplication();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
