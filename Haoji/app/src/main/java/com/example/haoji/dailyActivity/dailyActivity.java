@@ -103,6 +103,20 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         initBottomSectorMenuButton();
         DAY  = (TextView) findViewById(R.id.day);
+        //Handler处理子进程获取的数据
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+                System.out.println(val);
+                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
+                intent.putExtra("from","dailyActivity");
+                intent.putExtra("txt", val);
+                startActivity(intent);
+            }
+        };
         //会自动跳到当日
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
@@ -152,21 +166,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-
-        //Handler处理子进程获取的网络数据
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Bundle data = msg.getData();
-                String val = data.getString("value");
-                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                intent.putExtra("from", "Main");
-                intent.putExtra("txt",val);
-                startActivity(intent);
-            }
-        };
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -277,20 +276,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-
-        //Handler处理子进程获取的网络数据
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Bundle data = msg.getData();
-                String val = data.getString("value");
-                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                intent.putExtra("from", "Main");
-                intent.putExtra("txt",val);
-                startActivity(intent);
-            }
-        };
 
         app = (GlobalVariable) getApplication();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
