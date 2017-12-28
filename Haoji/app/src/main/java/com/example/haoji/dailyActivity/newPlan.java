@@ -212,7 +212,7 @@ public class newPlan extends AppCompatActivity {
                         year = _year;
                         month = _month+1;
                         day = _day;
-                        textv_date.setText(year+"年"+month+"月"+day+"日");
+                        textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
                     }
                 };
                 return new DatePickerDialog(this,dateListener,year,month,day);
