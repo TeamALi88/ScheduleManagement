@@ -34,6 +34,7 @@ import java.net.DatagramSocketImplFactory;
 import java.util.Calendar;
 
 public class newPlan extends AppCompatActivity {
+    private int id;
     private int index;
     private int year;
     private int month;
@@ -147,6 +148,7 @@ public class newPlan extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 ContentValues values = new ContentValues();
+                values.put("id",year+month+day+hour+minute);
                 values.put("content", editt_content.getText().toString());
                 values.put("year", year);
                 values.put("month", month);
@@ -164,6 +166,7 @@ public class newPlan extends AppCompatActivity {
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});
                 }
+                Toast.makeText(newPlan.this, "Successful!", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -172,7 +175,7 @@ public class newPlan extends AppCompatActivity {
             //set default date & time
             Calendar c = Calendar.getInstance();
             year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH) + 1;
+            month = c.get(Calendar.MONTH);
             day = c.get(Calendar.DAY_OF_MONTH);
             hour = c.get(Calendar.HOUR);
             minute = c.get(Calendar.MINUTE);
@@ -194,13 +197,9 @@ public class newPlan extends AppCompatActivity {
             minute = cursor.getInt(cursor.getColumnIndex("minute"));
             editt_content.setText(cursor.getString(cursor.getColumnIndex("content")));
         }
-        textv_date.setText(year+"年"+month+"月"+day+"日");
+        textv_date.setText(year+"年"+(month+1)+"月"+day+"日");
         textv_time.setText((hour<10?"0":"")+hour+":"+(minute<10?"0":"")+minute);
     }
-
-
-
-
 
     @Override
     protected Dialog onCreateDialog(int id){
