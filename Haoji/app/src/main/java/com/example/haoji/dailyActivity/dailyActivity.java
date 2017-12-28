@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -97,6 +98,10 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sidebar);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         //申明appid
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -237,6 +242,10 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onStart(){
         super.onStart();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);//修改状态栏
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        getWindow().setStatusBarColor(0xFF3F51B5);
         //申明appid
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a33bfff");
         initBottomSectorMenuButton();
