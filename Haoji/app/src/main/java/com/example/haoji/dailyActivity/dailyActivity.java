@@ -106,7 +106,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         //会自动跳到当日
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
-        m = c.get(Calendar.MONTH)+1;
+        m = c.get(Calendar.MONTH);
         d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
@@ -231,7 +231,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
 
         c = Calendar.getInstance();
         y = c.get(Calendar.YEAR);
-        m = c.get(Calendar.MONTH)+1;
+        m = c.get(Calendar.MONTH);
         d = c.get(Calendar.DAY_OF_MONTH);
         Date d1 = c.getTime();
        /* TextView tv=new TextView();
