@@ -188,6 +188,7 @@ public class newPlan extends AppCompatActivity {
             hour =Integer.parseInt(hearing.substring(hearing.indexOf("时")-2, hearing.indexOf("时")));
             minute =Integer.parseInt(hearing.substring(hearing.indexOf("分")-2, hearing.indexOf("分")));
             editt_content.setText(hearing.substring(0,hearing.indexOf("年")-4).concat(hearing.substring(hearing.indexOf("分")+1)));
+            month=month-1;
         }
         else// if(index != 0){
         {    Cursor cursor = db.rawQuery("select * from schedule where id = "+ index, null);
