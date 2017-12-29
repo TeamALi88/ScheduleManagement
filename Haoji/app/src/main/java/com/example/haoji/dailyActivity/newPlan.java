@@ -159,7 +159,7 @@ public class newPlan extends AppCompatActivity {
                 values.put("minute", minute);
                 values.put("remind", remind);
                 values.put("tag", tag);
-                if(index==-1){
+                if(index==-1||index==0){
                     db.insert("schedule", null, values);
                     if(remind == 1){
                         //alarm
@@ -168,6 +168,7 @@ public class newPlan extends AppCompatActivity {
                 else{
                     db.update("schedule", values, "id = ?", new String[]{""+index});
                 }
+                Toast.makeText(newPlan.this,"Success!",Toast.LENGTH_LONG).show();
                 finish();
             }
         });
