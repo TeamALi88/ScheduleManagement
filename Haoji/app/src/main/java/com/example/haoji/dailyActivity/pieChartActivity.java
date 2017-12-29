@@ -107,7 +107,7 @@ public class pieChartActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
+        month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         dbhelper = new Database(this, "HaojiDatabase.db", null, 1);
         db = dbhelper.getWritableDatabase();

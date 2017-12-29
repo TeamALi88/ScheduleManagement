@@ -1,9 +1,13 @@
 package com.example.haoji.dailyActivity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -115,7 +119,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 super.handleMessage(msg);
                 Bundle data = msg.getData();
                 String val = data.getString("value");
-                System.out.println(val);
                 Intent intent = new Intent(dailyActivity.this ,newPlan.class);
                 intent.putExtra("from","dailyActivity");
                 intent.putExtra("txt", val);
@@ -171,20 +174,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         OnedayFragmentRecyclerview onedaylist = new  OnedayFragmentRecyclerview(y,m,d);
         getSupportFragmentManager().beginTransaction().replace(R.id.fg2, onedaylist).commit();
         RadioGroup myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
-
-        //Handler处理子进程获取的网络数据
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Bundle data = msg.getData();
-                String val = data.getString("value");
-                Intent intent = new Intent(dailyActivity.this ,newPlan.class);
-                intent.putExtra("from", "Main");
-                intent.putExtra("txt",val);
-                startActivity(intent);
-            }
-        };
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -349,6 +338,17 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
         });
     }
 
+    //动态申请读取和写入存储器的权限
+    private void requestAllPower() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+        } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+        }
+    }
+
 
     private void initBottomSectorMenuButton() {
         SectorMenuButton sectorMenuButton = (SectorMenuButton) findViewById(R.id.bottom_sector_menu);
@@ -422,7 +422,6 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
             @Override
 
             public void onButtonClicked(int index) {
-
                 int buttonid = index;
 
                 if (buttonid == 1) {
@@ -449,6 +448,7 @@ public class dailyActivity extends AppCompatActivity implements NavigationView.O
                 //TODO 调用语音识别,语音识别调用newPlan
 
                 if(buttonid == 2){
+                    requestAllPower();
                     //调用相册
                     Intent intent = new Intent(Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
